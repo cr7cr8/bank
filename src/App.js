@@ -11,13 +11,19 @@ import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid } 
 import Bank from "./Bank";
 
 
+
+import HeadBar, { MyAvatar } from "./HeadBar";
+
+
 function App() {
 
 
   return (
     <>
       <CssBaseline />
-      <Bank />
+      <HeadBar />
+      <MyAvatar />
+      {/* <Bank /> */}
     </>
   )
 

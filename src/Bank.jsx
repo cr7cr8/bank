@@ -1,25 +1,13 @@
-import { useState, useRef, useEffect, useContext, useCallback, createContext, useMemo } from 'react';
-import { Context1 } from "./Context1Provider"
-
-
 import { EditorState, ContentState, ContentBlock, CharacterMetadata, SelectionState, convertToRaw, convertFromRaw, RichUtils, Modifier, convertFromHTML, AtomicBlockUtils } from 'draft-js';
 import Editor from "draft-js-plugins-editor";
 import Immutable from 'immutable';
-
 import chainable from 'draft-js-plugins-chainable';
-
-import createImagePlugin from './ImagePlugin';
-import createBoldPlugin from './BoldPlugin';
-import createEmojiPlugin from './EmojiPlugin';
-import createMentionPlugin from './MentionPlugin';
-import createLinkPlugin from './LinkPlugin';
-import createDeleteBlogPlugin from './DeleteBlogPlugin';
-import createBackColorPlugin from './BackColorPlugin';
-
 import { stateToHTML } from 'draft-js-export-html';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } from 'react-html-parser';
-import { makeStyles, styled, useTheme } from '@material-ui/core/styles';
 
+import { useState, useRef, useEffect, useContext, useCallback, createContext, useMemo } from 'react';
+import { Context1 } from "./Context1Provider"
+import { makeStyles, styled, useTheme } from '@material-ui/core/styles';
 import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
 import { Image, Brightness4, Brightness5, FormatBold, FormatItalic, FormatUnderlined, InsertEmoticon, PaletteOutlined } from "@material-ui/icons";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -32,7 +20,7 @@ import {
   engineName,
 } from "react-device-detect";
 
-import mia from "./u5.png";
+import bankLogo from "./u5.png";
 
 
 import List from '@material-ui/core/List';
@@ -54,6 +42,16 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import blue from '@material-ui/core/colors/blue';
 import StarBorder from '@material-ui/icons/StarBorder';
+
+import React from 'react';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,9 +118,9 @@ const useStyles = makeStyles((theme) => ({
     width: "4rem",
     height: "4rem",
     display: "block",
-    borderRadius: 0,
+    borderRadius: 1000,
   },
-  appbar: {
+  appBar: {
     backgroundColor: "#eee",
     paddingTop: "1rem",
     paddingBottom: "1rem",
@@ -202,14 +200,15 @@ export default function Bank() {
   return (
     <>
       <AppBar position="static">
-        <Toolbar classes={{ root: classes.appbar }}>
+        <Toolbar classes={{ root: classes.appBar }}>
 
 
           <Box classes={{ root: classes.logoBox }}>
 
             <Avatar
-              src={mia}
-              classes={{ root: classes.logo }}
+              src={bankLogo}
+              className={classes.logo}
+              //classes={{ root: classes.logo }}
             />
 
             <Box>
@@ -225,7 +224,7 @@ export default function Bank() {
 
 
           <Box classes={{ root: classes.logoBox }}>
-            <Avatar classes={{root: classes.avatarRoot}} src={mia}/>
+            <Avatar classes={{root: classes.avatarRoot}} src={bankLogo}/>
           </Box>
         
 
@@ -434,7 +433,12 @@ export default function Bank() {
 
 
 
-
+        <FormControlLabel
+          value="start"
+          control={<Radio color="primary" />}
+          label="Start"
+          labelPlacement="start"
+        />
 
 
 
