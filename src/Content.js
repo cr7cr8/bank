@@ -175,7 +175,7 @@ export default function Content({ style }) {
           )
         }
 
-        if (node.attribs ?.colorblock) {
+        if (node.attribs&&node.attribs.colorblock) {
           //  console.log(node.type)
           const arr = [];
           node.children.forEach((element, index) => {
