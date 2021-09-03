@@ -4,7 +4,7 @@ import { styled, useTheme } from '@material-ui/core/styles';
 
 import { withStyles, makeStyles } from '@material-ui/styles'
 
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
+import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu, Chip } from "@material-ui/core";
 import { Image, Brightness4, Brightness5, FormatBold, FormatItalic, FormatUnderlined, InsertEmoticon, PaletteOutlined } from "@material-ui/icons";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -28,7 +28,7 @@ import parse from 'html-react-parser';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
 
-import AvatarLogo from "./AvatarLogo";
+import AvatarLogo, {AvatarChip} from "./AvatarLogo";
 
 
 const svgCode = multiavatar('Binx Bond')
@@ -178,7 +178,14 @@ export default function HeadBar() {
         {/* <Box classes={{ root: classes.logoBox }}>
           <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
         </Box> */}
-        <AvatarLogo size={["1.8rem","2.2rem","3.2rem","4.2rem","5.2rem"]} personName={Math.random()} />
+        <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} />
+        <AvatarChip
+         size={["1.8rem", "2.2rem", "3.2rem", "4.2rem", "5.2rem"]} personName={"jfdklsfjlk"}
+          label="fsdfjfdskljflksjfkldsjflkjfklsdfjklsdfjklkjl"
+          style={{backgroundColor:"skyblue",fontSize:""}}
+
+
+        />
 
       </Toolbar>
     </AppBar>
@@ -194,10 +201,10 @@ export default function HeadBar() {
 
 const makingStyleObj = function (theme) {
   return {
-    avatarSize: ({ size, ...props }) => {   
+    avatarSize: ({ size, ...props }) => {
       return {
         ...breakpointsAttribute(["width", size, size, size, size, size], ["height", size, size, size, size, size]), //avatar size
-      
+
       }
     }
   }

@@ -3,63 +3,10 @@
 import React, { Component } from "react"
 import { withStyles, makeStyles, } from '@material-ui/styles'
 
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
+import { createMuiTheme, Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Chip, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
 
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
-
-
-
-
-
-const breakpoints = createBreakpoints({})
-
-const makingStyleObj = function (theme) {
-  return {
-    avatarSize: ({ size = ["2.8rem"], personName, ...props }) => {
-
-      if (typeof size === 'string' || size instanceof String) {
-        return {
-          ...breakpointsAttribute(["width", size], ["height", size]), //avatar size
-        }
-      }
-      else if (Array.isArray(size)) {
-        return {
-          ...breakpointsAttribute(["width", ...size], ["height", ...size]), //avatar size
-        }
-      }
-      else{
-        return {
-          ...breakpointsAttribute(["width", "2.8rem"] ["height", "2.8rem"]), //avatar size
-        }
-      }  
-
-    }
-  }
-}
-
-
-
-class AvatarLogo_ extends Component {
-  constructor(props) { super(props); };
-  render() {
-    const { classes } = this.props
-    return (<Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(this.props.personName && multiavatar(this.props.personName))} />)
-  }
-}
-
-
-const withStylesProps = (makingStylesFn) => {
-  return (Component) => {
-    return ({ children, ...props }) => {
-      const Comp = withStyles(makingStylesFn(props))(Component);
-      return <Comp {...props}>{children}</Comp>;
-    };
-  }
-}
-const AvatarLogo = withStylesProps(makingStyleObj)(AvatarLogo_);
-export default AvatarLogo
-
 
 function breakpointsAttribute(...args) {
 
@@ -86,3 +33,94 @@ function breakpointsAttribute(...args) {
     [breakpoints.only('xl')]: { ...xl },
   }
 }
+const breakpoints = createBreakpoints({})
+const withStylesProps = (makingStylesFn) => {
+  return (Component) => {
+    return ({ children, ...props }) => {
+      const Comp = withStyles(makingStylesFn(props))(Component);
+      return <Comp {...props}>{children}</Comp>;
+    };
+  }
+}
+
+const muiTheme = createMuiTheme({})
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+const makingStyleObj = function (...args) {
+
+  return {
+    avatarSize: ({ size = "40px", personName, ...props }) => {
+
+
+      const size_ = Array.isArray(size) ? size : [size]
+      return {
+
+        "&.MuiAvatar-circle": {
+          ...breakpointsAttribute(["width", ...size_], ["height", ...size_]), //avatar size
+        }
+      }
+
+    },
+    chipSize: ({ size = "40px", personName, ...props }) => {
+      const size_ = Array.isArray(size) ? size : [size]
+      return {
+        ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
+
+        "& .MuiChip-label":{
+          "fontWeight":"bold",
+          ...breakpointsAttribute(["fontSize", ...size_]), //avatar size
+        }
+      }
+
+    },
+
+
+  }
+}
+
+
+
+
+
+
+class AvatarLogo_ extends Component {
+  //  constructor(props) { super(props); };
+  render() {
+    const { classes, personName, ...rest } = this.props
+    return (<Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))} {...rest} />)
+  }
+}
+
+
+const AvatarLogo = withStylesProps(makingStyleObj)(AvatarLogo_);
+export default AvatarLogo;
+
+
+class AvatarChip_ extends Component {
+  constructor(props) { super(props); };
+  render() {
+    const { classes, size, personName, ...rest } = this.props
+    return (
+      <Chip
+        classes={{ root: classes.chipSize }}
+        avatar={<AvatarLogo size={size} personName={personName} />}
+        label={personName}
+        {...rest}
+      />
+
+    )
+  }
+}
+
+export const AvatarChip = withStylesProps(makingStyleObj)(AvatarChip_);
+
+
+
+
+
+
+
+
