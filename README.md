@@ -1,6 +1,6 @@
-    <Avatar classes={{ root: classes.avatarRoot }} src={"data:image/svg+xml;base64,"+btoa(svgCode)} />
+<Avatar classes={{ root: classes.avatarRoot }} src={"data:image/svg+xml;base64,"+btoa(svgCode)} />
 
-{ReactHtmlParser(svgHtmlString, { transform: transformFn })}
+ReactHtmlParser(svgHtmlString, { transform: transformFn })
 function transformFn(node, index) {
   if (node.name === "svg") {
 
