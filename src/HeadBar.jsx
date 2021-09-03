@@ -181,9 +181,9 @@ export default function HeadBar() {
         <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} />
         <AvatarChip
          size={["1.8rem", "2.2rem", "3.2rem", "4.2rem", "5.2rem"]} personName={"jfdklsfjlk"}
-          label="fsdfjfdskljflksjfkldsjflkjfklsdfjklsdfjklkjl"
+          label="fsd飞毛腿l"
           style={{backgroundColor:"skyblue",fontSize:""}}
-
+          onClick={function(){}}
 
         />
 
