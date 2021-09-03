@@ -146,12 +146,7 @@ export default function HeadBar() {
 
         <Box classes={{ root: classes.logoBox }}>
 
-          <Avatar
-
-            src={bankLogo}
-            //  className={classes.logo}
-            classes={{ root: classes.logo }}
-          />
+          <MyAvatar width="10rem" />
 
           <Box>
             <Typography variant="h5" style={{ display: "1em", display: "block" }}>
@@ -164,10 +159,10 @@ export default function HeadBar() {
           </Box>
         </Box>
 
-        <Box classes={{ root: classes.logoBox }}>
+        {/* <Box classes={{ root: classes.logoBox }}>
           <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
-        </Box>
-
+        </Box> */}
+        <MyAvatar width="10rem" />
 
       </Toolbar>
     </AppBar>
@@ -179,27 +174,21 @@ export default function HeadBar() {
 
 
 
-
-
-const styleObj = function (theme) {
-
-//alert(JSON.stringify(theme))
-
+const makingStyleObj = function (theme) {
 
   return {
-    avatarRoot: () => {   // withStle cannot use prop
+    avatarRoot: ({ width, ...props }) => {   // withStle cannot use prop
 
+      //alert(JSON.stringify(props))
+      // alert(JSON.stringify(props))
       return {
-        width: "4rem",
+        width: width,
         height: "4rem",
         display: "block",
         borderRadius: 1000,
       }
-    
     }
-
   }
-
 }
 
 
@@ -219,12 +208,17 @@ class MyAvatar_ extends React.Component {
 
     )
   }
+}
 
-
-
+const withStylesProps = (makingStylesFn) => {
+  return (Component) => {
+    return (props) => {
+      const Comp = withStyles(makingStylesFn(props))(Component);
+      return <Comp {...props} />;
+    };
+  }
 }
 
 
 
-export const MyAvatar = withStyles(styleObj)(MyAvatar_);
-
+export const MyAvatar = withStylesProps(makingStyleObj)(MyAvatar_);
