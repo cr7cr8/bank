@@ -200,11 +200,9 @@ class MyAvatar_ extends React.Component {
   };
 
   render() {
-
     const { classes } = this.props
     return (
       <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
-
     )
   }
 }
