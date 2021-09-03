@@ -21,12 +21,18 @@ import bankLogo from "./u5.png";
 import blue from '@material-ui/core/colors/blue';
 
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } from 'react-html-parser';
-
 import parse from 'html-react-parser';
 
-import multiavatar from '@multiavatar/multiavatar'
-let svgCode = multiavatar('Binx Bond')
 
+
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+import multiavatar from '@multiavatar/multiavatar'
+
+import AvatarLogo from "./AvatarLogo";
+
+
+const svgCode = multiavatar('Binx Bond')
+const breakpoints = createBreakpoints({})
 
 
 const useStyles = makeStyles((theme) => ({
@@ -162,8 +168,6 @@ export default function HeadBar() {
               </Typography>
 
 
-            {ReactHtmlParser(svgCode, { transform: transformFn })}
-            {parse(svgCode)}
 
 
 
@@ -174,7 +178,7 @@ export default function HeadBar() {
         {/* <Box classes={{ root: classes.logoBox }}>
           <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
         </Box> */}
-        <MyAvatar width="10rem" />
+        <AvatarLogo size={["1.8rem","2.2rem","3.2rem","4.2rem","5.2rem"]} personName={Math.random()} />
 
       </Toolbar>
     </AppBar>
@@ -186,36 +190,23 @@ export default function HeadBar() {
 
 
 
+
+
 const makingStyleObj = function (theme) {
-
   return {
-    avatarRoot: ({ width, ...props }) => {   // withStle cannot use prop
-
+    avatarSize: ({ size, ...props }) => {   
       return {
-        width: width,
-        height: "4rem",
-        display: "block",
-        borderRadius: 1000,
+        ...breakpointsAttribute(["width", size, size, size, size, size], ["height", size, size, size, size, size]), //avatar size
+      
       }
     }
   }
 }
-
-
-
-
 class MyAvatar_ extends React.Component {
-
-  constructor(props) {
-    super(props);
-    //alert(JSON.stringify(props))
-  };
-
+  constructor(props) { super(props); };
   render() {
     const { classes } = this.props
-    return (
-      <Avatar classes={{ root: classes.avatarRoot }} src={"data:image/svg+xml;base64,"+btoa(svgCode)} />
-    )
+    return (<Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(svgCode)} />)
   }
 }
 
@@ -227,9 +218,6 @@ const withStylesProps = (makingStylesFn) => {
     };
   }
 }
-
-
-
 export const MyAvatar = withStylesProps(makingStyleObj)(MyAvatar_);
 
 
@@ -250,5 +238,32 @@ function transformFn(node, index) {
         })}
       </svg>
     )
+  }
+}
+
+
+function breakpointsAttribute(...args) {
+
+  let xs = {}
+  let sm = {}
+  let md = {}
+  let lg = {}
+  let xl = {}
+
+  args.forEach(item => {
+    xs = { ...xs, [item[0]]: item[1] }
+    sm = { ...sm, [item[0]]: item[2] || item[1] }
+    md = { ...md, [item[0]]: item[3] || item[2] || item[1] }
+    lg = { ...lg, [item[0]]: item[4] || item[3] || item[2] || item[1] }
+    xl = { ...xl, [item[0]]: item[5] || item[4] || item[3] || item[2] || item[1] }
+  })
+
+
+  return {
+    [breakpoints.only('xs')]: { ...xs },
+    [breakpoints.only('sm')]: { ...sm },
+    [breakpoints.only('md')]: { ...md },
+    [breakpoints.only('lg')]: { ...lg },
+    [breakpoints.only('xl')]: { ...xl },
   }
 }

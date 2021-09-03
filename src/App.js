@@ -22,7 +22,7 @@ function App() {
     <>
       <CssBaseline />
       <HeadBar />
-      <MyAvatar width="20rem"/>
+      <MyAvatar size="10rem"/>
       {/* <Bank /> */}
     </>
   )
