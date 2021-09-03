@@ -178,6 +178,7 @@ class AvatarChip_ extends Component {
         />
 
         <Popover
+        marginThreshold={550}
           id="mouse-over-popover"
           className={classes.popover}
           classes={{
