@@ -20,7 +20,12 @@ import bankLogo from "./u5.png";
 
 import blue from '@material-ui/core/colors/blue';
 
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } from 'react-html-parser';
 
+import parse from 'html-react-parser';
+
+import multiavatar from '@multiavatar/multiavatar'
+let svgCode = multiavatar('Binx Bond')
 
 
 
@@ -156,6 +161,13 @@ export default function HeadBar() {
               BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
               </Typography>
 
+
+            {ReactHtmlParser(svgCode, { transform: transformFn })}
+            {parse(svgCode)}
+
+
+
+
           </Box>
         </Box>
 
@@ -202,14 +214,14 @@ class MyAvatar_ extends React.Component {
   render() {
     const { classes } = this.props
     return (
-      <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
+      <Avatar classes={{ root: classes.avatarRoot }} src={"data:image/svg+xml;base64,"+btoa(svgCode)} />
     )
   }
 }
 
 const withStylesProps = (makingStylesFn) => {
   return (Component) => {
-    return ({children ,...props}) => {
+    return ({ children, ...props }) => {
       const Comp = withStyles(makingStylesFn(props))(Component);
       return <Comp {...props}>{children}</Comp>;
     };
@@ -224,3 +236,19 @@ export const MyAvatar = withStylesProps(makingStyleObj)(MyAvatar_);
 
 
 
+
+function transformFn(node, index) {
+  if (node.name === "svg") {
+
+
+    const { viewbox, ...rest } = node.attribs;
+
+    return (
+      <svg   {...rest} viewBox={viewbox}>
+        {node.children.map((child, index) => {
+          return convertNodeToElement(child, index, transformFn)
+        })}
+      </svg>
+    )
+  }
+}
