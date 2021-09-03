@@ -178,25 +178,29 @@ export default function HeadBar() {
         {/* <Box classes={{ root: classes.logoBox }}>
           <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
         </Box> */}
-        <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} />
+        {/* <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} /> */}
         <AvatarChip
-         size={["1.8rem", "2.2rem", "3.2rem", "4.2rem", "5.2rem"]} personName={"jfdklsfjlk"}
+         size={["1.8rem"]} personName={"jfdklsfjlk"}
           label="fsd飞毛腿l"
-          style={{backgroundColor:"skyblue",fontSize:""}}
+          style={{backgroundColor:"skyblue"}}
           onClick={function(){}}
 
         />
 
       </Toolbar>
+      <AvatarChip
+         size={["1.8rem"]} personName={"jfdklsfjlk"}
+          label="fsd飞毛腿l"
+          style={{backgroundColor:"skyblue"}}
+          onClick={function(){}}
+
+        />
     </AppBar>
 
   )
 
 
 }
-
-
-
 
 
 const makingStyleObj = function (theme) {

@@ -3,7 +3,7 @@
 import React, { Component } from "react"
 import { withStyles, makeStyles, } from '@material-ui/styles'
 
-import { createMuiTheme, Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Chip, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
+import { createMuiTheme, Avatar, Chip, Popover, Typography } from "@material-ui/core";
 
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
@@ -68,13 +68,23 @@ const makingStyleObj = function (...args) {
       const size_ = Array.isArray(size) ? size : [size]
       return {
         ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
-
-        "& .MuiChip-label":{
-          "fontWeight":"bold",
+        "& .MuiChip-label": {
+          "fontWeight": "bold",
           ...breakpointsAttribute(["fontSize", ...size_]), //avatar size
         }
       }
 
+    },
+    popover: () => {
+      return {
+        pointerEvents: 'none',
+      }
+    },
+    paper: () => {
+      return {
+        pointerEvents: "auto",
+        padding: muiTheme.spacing(1)
+      }
     },
 
 
@@ -85,12 +95,25 @@ const makingStyleObj = function (...args) {
 
 
 
+//const classes = useStyles();
+
+//const open = Boolean(anchorEl);
+
+
 
 class AvatarLogo_ extends Component {
-  //  constructor(props) { super(props); };
+
+
+
   render() {
     const { classes, personName, ...rest } = this.props
-    return (<Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))} {...rest} />)
+    return (
+
+      <Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))} {...rest} />
+
+
+
+    )
   }
 }
 
@@ -100,16 +123,83 @@ export default AvatarLogo;
 
 
 class AvatarChip_ extends Component {
-  constructor(props) { super(props); };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: null,
+      open: false,
+
+    }
+
+    this.anchorRef = React.createRef();
+  };
+
+  handlePopoverOpen = (event) => {
+    //  alert("in")
+    this.setState({ anchorEl: event.currentTarget, open: true });
+  };
+
+  handlePopoverClose = () => {
+    // alert("out")
+    this.setState({ anchorEl: null, open: false });
+  };
+
+
+
+
   render() {
     const { classes, size, personName, ...rest } = this.props
+
+
     return (
-      <Chip
-        classes={{ root: classes.chipSize }}
-        avatar={<AvatarLogo size={size} personName={personName} />}
-        label={personName}
-        {...rest}
-      />
+      <div style={{ backgroundColor: "pink", width: "fit-content" }}
+
+
+
+
+
+      >
+
+
+        <Chip
+
+          classes={{ root: classes.chipSize }}
+          avatar={<AvatarLogo size={size} personName={personName} />}
+          label={personName}
+          {...rest}
+          onMouseEnter={this.handlePopoverOpen}
+          onMouseLeave={this.handlePopoverClose}
+          // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
+          // aria-haspopup="true"
+          //     innerRef={this.state.anchorEl}
+          ref={this.anchorRef}
+
+        />
+
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={this.state.open}
+          anchorEl={this.anchorRef.current}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          //    onClose={this.handlePopoverClose}
+          //    disableRestoreFocus
+          PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose }}
+        >
+          <Typography>I use Popover.</Typography>
+        </Popover>
+      </div>
 
     )
   }

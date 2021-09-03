@@ -14,15 +14,24 @@ import Bank from "./Bank";
 
 import HeadBar, { MyAvatar } from "./HeadBar";
 
-
+import AvatarLogo, {AvatarChip} from "./AvatarLogo";
 function App() {
 
 
   return (
     <>
       <CssBaseline />
+
+      {/* <AvatarChip
+         size={["1.8rem"]} personName={"jfdklsfjlk"}
+          label="fsd飞毛腿l"
+     //     style={{backgroundColor:"skyblue"}}
+      
+        /> */}
+
+
       <HeadBar />
-      <MyAvatar size="10rem"/>
+      {/* <MyAvatar size="10rem"/> */}
       {/* <Bank /> */}
     </>
   )
