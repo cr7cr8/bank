@@ -179,8 +179,6 @@ const makingStyleObj = function (theme) {
   return {
     avatarRoot: ({ width, ...props }) => {   // withStle cannot use prop
 
-      //alert(JSON.stringify(props))
-      // alert(JSON.stringify(props))
       return {
         width: width,
         height: "4rem",
@@ -198,6 +196,7 @@ class MyAvatar_ extends React.Component {
 
   constructor(props) {
     super(props);
+    //alert(JSON.stringify(props))
   };
 
   render() {
@@ -212,9 +211,9 @@ class MyAvatar_ extends React.Component {
 
 const withStylesProps = (makingStylesFn) => {
   return (Component) => {
-    return (props) => {
+    return ({children ,...props}) => {
       const Comp = withStyles(makingStylesFn(props))(Component);
-      return <Comp {...props} />;
+      return <Comp {...props}>{children}</Comp>;
     };
   }
 }
@@ -222,3 +221,8 @@ const withStylesProps = (makingStylesFn) => {
 
 
 export const MyAvatar = withStylesProps(makingStyleObj)(MyAvatar_);
+
+
+
+
+
