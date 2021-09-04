@@ -17,7 +17,7 @@ import {
   isFirefox,
   isChrome,
   browserName,
-  engineName, 
+  engineName,  
 } from "react-device-detect";
 
 import bankLogo from "./bankLogo.png";
