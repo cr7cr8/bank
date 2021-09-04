@@ -16,12 +16,10 @@ import {
   engineName,
 } from "react-device-detect";
 
-import bankLogo from "./bankLogo.png";
+
 
 import blue from '@material-ui/core/colors/blue';
 
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } from 'react-html-parser';
-import parse from 'html-react-parser';
 
 
 
@@ -31,10 +29,8 @@ import multiavatar from '@multiavatar/multiavatar'
 import AvatarLogo, { AvatarChip } from "./AvatarLogo";
 
 
-const svgCode = multiavatar('Binx Bond')
-const breakpoints = createBreakpoints({})
 
- 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -169,7 +165,7 @@ export default function HeadBar() {
               hoverContent={
                 <>
                   <Typography variant="h5" >宁波银行客户统一视图</Typography>
-                  <Typography variant="h5" style={{ fontSize: "0.8rem",color: theme.palette.text.secondary }}>
+                  <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
                     BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
                   </Typography>
                 </>
@@ -204,22 +200,6 @@ export default function HeadBar() {
 
       </AppBar>
 
-
-
-      <AvatarChip
-        size={["1.8rem"]} personName={"jfdklsfjlk"}
-        label="fsd飞毛腿l"
-        style={{ backgroundColor: "skyblue" }}
-      //    onClick={function () { }}
-
-      />
-      <AvatarChip
-        size={["1.8rem"]} personName={"jsfjlk"}
-        label="而无法"
-        style={{ backgroundColor: "skyblue" }}
-      //    onClick={function () { }}
-
-      />
     </>
   )
 
@@ -227,78 +207,3 @@ export default function HeadBar() {
 }
 
 
-const makingStyleObj = function (theme) {
-  return {
-    avatarSize: ({ size, ...props }) => {
-      return {
-        ...breakpointsAttribute(["width", size, size, size, size, size], ["height", size, size, size, size, size]), //avatar size
-
-      }
-    }
-  }
-}
-class MyAvatar_ extends React.Component {
-  constructor(props) { super(props); };
-  render() {
-    const { classes } = this.props
-    return (<Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(svgCode)} />)
-  }
-}
-
-const withStylesProps = (makingStylesFn) => {
-  return (Component) => {
-    return ({ children, ...props }) => {
-      const Comp = withStyles(makingStylesFn(props))(Component);
-      return <Comp {...props}>{children}</Comp>;
-    };
-  }
-}
-export const MyAvatar = withStylesProps(makingStyleObj)(MyAvatar_);
-
-
-
-
-
-
-function transformFn(node, index) {
-  if (node.name === "svg") {
-
-
-    const { viewbox, ...rest } = node.attribs;
-
-    return (
-      <svg   {...rest} viewBox={viewbox}>
-        {node.children.map((child, index) => {
-          return convertNodeToElement(child, index, transformFn)
-        })}
-      </svg>
-    )
-  }
-}
-
-
-function breakpointsAttribute(...args) {
-
-  let xs = {}
-  let sm = {}
-  let md = {}
-  let lg = {}
-  let xl = {}
-
-  args.forEach(item => {
-    xs = { ...xs, [item[0]]: item[1] }
-    sm = { ...sm, [item[0]]: item[2] || item[1] }
-    md = { ...md, [item[0]]: item[3] || item[2] || item[1] }
-    lg = { ...lg, [item[0]]: item[4] || item[3] || item[2] || item[1] }
-    xl = { ...xl, [item[0]]: item[5] || item[4] || item[3] || item[2] || item[1] }
-  })
-
-
-  return {
-    [breakpoints.only('xs')]: { ...xs },
-    [breakpoints.only('sm')]: { ...sm },
-    [breakpoints.only('md')]: { ...md },
-    [breakpoints.only('lg')]: { ...lg },
-    [breakpoints.only('xl')]: { ...xl },
-  }
-}
