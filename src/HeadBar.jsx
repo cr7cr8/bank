@@ -34,7 +34,7 @@ import AvatarLogo, { AvatarChip } from "./AvatarLogo";
 const svgCode = multiavatar('Binx Bond')
 const breakpoints = createBreakpoints({})
 
-
+ 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
