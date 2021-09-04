@@ -1,6 +1,7 @@
-
-
 import React, { Component } from "react"
+import bankLogo from "./bankLogo.png";
+
+
 import { withStyles, makeStyles, } from '@material-ui/styles'
 
 import { createMuiTheme, Avatar, Chip, Popover, Typography } from "@material-ui/core";
@@ -83,7 +84,8 @@ const makingStyleObj = function (...args) {
     paper: () => {
       return {
         pointerEvents: "auto",
-        padding: muiTheme.spacing(1)
+        padding: muiTheme.spacing(1),
+        //  margin: muiTheme.spacing(5),
       }
     },
 
@@ -107,6 +109,12 @@ class AvatarLogo_ extends Component {
 
   render() {
     const { classes, personName, ...rest } = this.props
+
+    if (personName === "bank") {
+      return <Avatar classes={{ root: classes.avatarSize }} src={bankLogo} {...rest} />
+
+    }
+
     return (
 
       <Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))} {...rest} />
@@ -127,26 +135,102 @@ class AvatarChip_ extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchorEl: null,
       open: false,
+      transOriginH: "left",
+      transOriginV: "top",
+      anchorPos: { "top": 0, "left": 0 },
 
     }
 
     this.anchorRef = React.createRef();
+
   };
 
   handlePopoverOpen = (event) => {
-    //  alert("in")
-    this.setState({ anchorEl: event.currentTarget, open: true });
+
+    const { left, right, width, top, bottom, height } = this.anchorRef.current.getBoundingClientRect()
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+
+    if (centerX <= window.innerWidth / 2 && centerY <= window.innerHeight / 2) {
+      this.setState(pre => {
+        return {
+          open: true,
+          transOriginH: "left",
+          transOriginV: "top",
+          anchorPos: { "left": Math.round(left), "top": Math.round(top + height) + 8 },
+
+        }
+      });
+
+
+    }
+    else if (centerX >= window.innerWidth / 2 && centerY <= window.innerHeight / 2) {
+      this.setState(pre => {
+        return {
+          open: true,
+          transOriginH: "right",
+          transOriginV: "top",
+          anchorPos: { "left": Math.round(left + width), "top": Math.round(top + height) + 8 },
+
+        }
+      });
+    }
+    else if (centerX <= window.innerWidth / 2 && centerY >= window.innerHeight / 2) {
+
+      this.setState(pre => {
+
+
+        return {
+          open: true,
+          transOriginH: "left",
+          transOriginV: "bottom",
+          anchorPos: { "left": Math.round(left), "top": Math.round(top) - 8, },
+
+        }
+      });
+
+    }
+    else if (centerX >= window.innerWidth / 2 && centerY >= window.innerHeight / 2) {
+
+      this.setState(pre => {
+        return {
+          open: true,
+          transOriginH: "right",
+          transOriginV: "bottom",
+          anchorPos: { "left": Math.round(left + width), "top": Math.round(top) - 8, },
+
+        }
+      });
+
+    }
+
+
+
+
+
+
+
+
   };
 
   handlePopoverClose = () => {
     // alert("out")
-    this.setState({ anchorEl: null, open: false });
+    //this.setState({ anchorEl: null, open: false });
+    this.setState(pre => { return { ...pre, open: false } });
   };
 
 
+  componentDidMount() {
 
+
+  }
+
+  componentDidUpdate(preProp, preState) {
+
+
+
+  }
 
   render() {
     const { classes, size, personName, ...rest } = this.props
@@ -178,27 +262,40 @@ class AvatarChip_ extends Component {
         />
 
         <Popover
-        marginThreshold={550}
-          id="mouse-over-popover"
+
+          marginThreshold={0}
+          //id="mouse-over-popover"
           className={classes.popover}
           classes={{
             paper: classes.paper,
           }}
           open={this.state.open}
+          anchorReference="anchorPosition"
           anchorEl={this.anchorRef.current}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+
+            horizontal: "left",
+            vertical: "bottom",
+
+
           }}
+          anchorPosition={{ ...this.state.anchorPos, }}
           transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            horizontal: this.state.transOriginH,
+            vertical: this.state.transOriginV,
+
           }}
+
+
           //    onClose={this.handlePopoverClose}
-          //    disableRestoreFocus
-          PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose }}
+          disableRestoreFocus
+          PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
         >
-          <Typography>I use Popover.</Typography>
+          <Typography>I use Povcxvcxvxcvvclxkvl;c;klkv;pover.<br />
+            I use Povcxvcxvxcvvclxkvl;ckvl;ckvl;cxvkl
+
+
+          </Typography>
         </Popover>
       </div>
 

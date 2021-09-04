@@ -20,7 +20,7 @@ import {
   engineName,
 } from "react-device-detect";
 
-import bankLogo from "./u5.png";
+import bankLogo from "./bankLogo.png";
 
 
 import List from '@material-ui/core/List';

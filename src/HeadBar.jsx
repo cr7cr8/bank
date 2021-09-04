@@ -16,7 +16,7 @@ import {
   engineName,
 } from "react-device-detect";
 
-import bankLogo from "./u5.png";
+import bankLogo from "./bankLogo.png";
 
 import blue from '@material-ui/core/colors/blue';
 
@@ -28,7 +28,7 @@ import parse from 'html-react-parser';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
 
-import AvatarLogo, {AvatarChip} from "./AvatarLogo";
+import AvatarLogo, { AvatarChip } from "./AvatarLogo";
 
 
 const svgCode = multiavatar('Binx Bond')
@@ -157,21 +157,17 @@ export default function HeadBar() {
 
         <Box classes={{ root: classes.logoBox }}>
 
-          <MyAvatar width="10rem" />
+          <AvatarLogo size="2.8rem" personName="bank"/>
+         
+          {/* <div style={{ height: "400px" }}>dssdd</div> */}
 
           <Box>
-            <Typography variant="h5" style={{ display: "1em", display: "block" }}>
+            <Typography variant="h5" style={{  display: "block" }}>
               宁波银行客户统一视图
               </Typography>
             <Typography variant="h5" style={{ fontSize: "0.5em", display: "block" }}>
               BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
               </Typography>
-
-
-
-
-
-
           </Box>
         </Box>
 
@@ -180,21 +176,21 @@ export default function HeadBar() {
         </Box> */}
         {/* <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} /> */}
         <AvatarChip
-         size={["1.8rem"]} personName={"jfdklsfjlk"}
+          size={["1.8rem"]} personName={"jfdklsfjlk"}
           label="fsd飞毛腿l"
-          style={{backgroundColor:"skyblue"}}
-          onClick={function(){}}
+          style={{ backgroundColor: "skyblue" }}
+          onClick={function () { }}
 
         />
 
       </Toolbar>
       <AvatarChip
-         size={["1.8rem"]} personName={"jfdklsfjlk"}
-          label="fsd飞毛腿l"
-          style={{backgroundColor:"skyblue"}}
-          onClick={function(){}}
+        size={["1.8rem"]} personName={"jfdklsfjlk"}
+        label="fsd飞毛腿l"
+        style={{ backgroundColor: "skyblue" }}
+        onClick={function () { }}
 
-        />
+      />
     </AppBar>
 
   )
