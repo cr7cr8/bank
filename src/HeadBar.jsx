@@ -148,63 +148,79 @@ export default function HeadBar() {
 
 
   const classes = useStyles()
+  const theme = useTheme()
 
   return (
-<>
-    <AppBar position="static">
-      <Toolbar classes={{ root: classes.appBar }}>
+    <>
+      <AppBar position="static">
+        <Toolbar classes={{ root: classes.appBar }}>
+
+            <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
+              label={
+                <>
+                  <Typography variant="h5" >
+                    宁波银行客户统一视图
+                  </Typography>
+                  <Typography variant="h5" style={{ fontSize: "0.8rem",color: theme.palette.text.secondary }}>
+                    BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+               </Typography>
+                </>
+              }
+              hoverContent={
+                <>
+                  <Typography variant="h5" >宁波银行客户统一视图</Typography>
+                  <Typography variant="h5" style={{ fontSize: "0.8rem",color: theme.palette.text.secondary }}>
+                    BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+                  </Typography>
+                </>
+              }
+            />
+        
 
 
-        <Box classes={{ root: classes.logoBox }}>
-
-          <AvatarLogo size="2.8rem" personName="bank"/>
-      
+          <AvatarChip
+            size={["1.8rem"]} personName={"毛大帅"}
+            label={
+              <>
+                <Typography variant="h5" style={{ fontSize: "0.9rem", fontWeight: "bold" }}>
+                  毛大帅
+              </Typography>
+                <Typography variant="h5" style={{ fontSize: "0.6rem", display: "block", color: theme.palette.text.secondary }}>
+                  业务经理
+              </Typography>
+              </>
+            }
+            hoverContent={
+              <>
+                <Typography variant="h5" >毛大帅</Typography>
+                <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
+                  业务经理
+                </Typography>
+              </>
+            }
+          />
          
-          {/* <div style={{ height: "400px" }}>dssdd</div> */}
+        </Toolbar>
 
-          <Box>
-            <Typography variant="h5" style={{  display: "block" }}>
-              宁波银行客户统一视图
-              </Typography>
-            <Typography variant="h5" style={{ fontSize: "0.5em", display: "block" }}>
-              BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
-              </Typography>
-          </Box>
-        </Box>
-
-        {/* <Box classes={{ root: classes.logoBox }}>
-          <Avatar classes={{ root: classes.avatarRoot }} src={bankLogo} />
-        </Box> */}
-        {/* <AvatarLogo size={["1rem", "3rem", "5rem", "7rem", "9rem"]} personName={Math.random()} /> */}
-        <AvatarChip
-          size={["1.8rem"]} personName={"jfdklsfjlk"}
-          label="fsd飞毛腿l"
-          style={{ backgroundColor: "skyblue" }}
-          onClick={function () { }}
-
-        />
-
-      </Toolbar>
-     
-    </AppBar>
+      </AppBar>
 
 
 
-    <AvatarChip
+      <AvatarChip
         size={["1.8rem"]} personName={"jfdklsfjlk"}
         label="fsd飞毛腿l"
         style={{ backgroundColor: "skyblue" }}
-        onClick={function () { }}
+      //    onClick={function () { }}
 
       />
-         <AvatarChip
+      <AvatarChip
         size={["1.8rem"]} personName={"jsfjlk"}
         label="而无法"
         style={{ backgroundColor: "skyblue" }}
-        onClick={function () { }}
+      //    onClick={function () { }}
 
       />
-</>
+    </>
   )
 
 

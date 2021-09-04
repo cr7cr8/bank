@@ -69,7 +69,7 @@ const makingStyleObj = function (...args) {
       const size_ = Array.isArray(size) ? size : [size]
       return {
         ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
-    
+
         "& .MuiChip-label": {
           "fontWeight": "bold",
           ...breakpointsAttribute(["fontSize", ...size_]), //avatar label size
@@ -152,7 +152,7 @@ class AvatarChip_ extends Component {
       }
     });
 
-   
+
   };
 
   handlePopoverClose = () => {
@@ -176,22 +176,23 @@ class AvatarChip_ extends Component {
 
 
     return (
-      <div style={{ backgroundColor: "pink", width: "fit-content", display:"inline-block" }}    >
+      <div style={{ width: "fit-content", display: "inline-block" }}    >
 
         <Chip
           classes={{ root: classes.chipSize }}
           avatar={<AvatarLogo size={size} personName={personName} />}
           label={personName}
           {...rest}
-          onMouseEnter={this.handlePopoverOpen}
-          onMouseLeave={this.handlePopoverClose}
+          {...this.props.hoverContent&&{onMouseEnter:this.handlePopoverOpen}}
+          {...this.props.hoverContent&&{onMouseLeave:this.handlePopoverClose}}
+     
           // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
           // aria-haspopup="true"
           //     innerRef={this.state.anchorEl}
           ref={this.anchorRef}
         />
 
-        <Popover
+        {this.props.hoverContent && <Popover
 
           marginThreshold={0}
           //id="mouse-over-popover"
@@ -212,16 +213,13 @@ class AvatarChip_ extends Component {
             vertical: this.state.transOriginV,
           }}
 
-          onClose={this.handlePopoverClose}
+       //   onClose={this.handlePopoverClose}
           disableRestoreFocus
           PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
         >
-          <Typography>I use Povcxvcxvxcvvclxkvl;c;klkv;pover.<br />
-            I use Povcxvcxvxcvvclxkvl;ckvl;ckvl;cxvkl
-
-
-          </Typography>
-        </Popover>
+          {this.props.hoverContent}
+        </Popover>}
+      
       </div>
 
     )
@@ -229,10 +227,6 @@ class AvatarChip_ extends Component {
 }
 
 export const AvatarChip = withStylesProps(makingStyleObj)(AvatarChip_);
-
-
-
-
 
 
 
