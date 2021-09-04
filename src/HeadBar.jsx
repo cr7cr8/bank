@@ -150,7 +150,7 @@ export default function HeadBar() {
   const classes = useStyles()
 
   return (
-
+<>
     <AppBar position="static">
       <Toolbar classes={{ root: classes.appBar }}>
 
@@ -158,6 +158,7 @@ export default function HeadBar() {
         <Box classes={{ root: classes.logoBox }}>
 
           <AvatarLogo size="2.8rem" personName="bank"/>
+      
          
           {/* <div style={{ height: "400px" }}>dssdd</div> */}
 
@@ -184,15 +185,26 @@ export default function HeadBar() {
         />
 
       </Toolbar>
-      <AvatarChip
+     
+    </AppBar>
+
+
+
+    <AvatarChip
         size={["1.8rem"]} personName={"jfdklsfjlk"}
         label="fsd飞毛腿l"
         style={{ backgroundColor: "skyblue" }}
         onClick={function () { }}
 
       />
-    </AppBar>
+         <AvatarChip
+        size={["1.8rem"]} personName={"jsfjlk"}
+        label="而无法"
+        style={{ backgroundColor: "skyblue" }}
+        onClick={function () { }}
 
+      />
+</>
   )
 
 

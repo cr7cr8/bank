@@ -69,9 +69,10 @@ const makingStyleObj = function (...args) {
       const size_ = Array.isArray(size) ? size : [size]
       return {
         ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
+    
         "& .MuiChip-label": {
           "fontWeight": "bold",
-          ...breakpointsAttribute(["fontSize", ...size_]), //avatar size
+          ...breakpointsAttribute(["fontSize", ...size_]), //avatar label size
         }
       }
 
@@ -85,7 +86,7 @@ const makingStyleObj = function (...args) {
       return {
         pointerEvents: "auto",
         padding: muiTheme.spacing(1),
-        //  margin: muiTheme.spacing(5),
+
       }
     },
 
@@ -97,31 +98,16 @@ const makingStyleObj = function (...args) {
 
 
 
-//const classes = useStyles();
-
-//const open = Boolean(anchorEl);
-
 
 
 class AvatarLogo_ extends Component {
 
-
-
   render() {
     const { classes, personName, ...rest } = this.props
+    const src = personName === "bank" ? bankLogo : "data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))
 
-    if (personName === "bank") {
-      return <Avatar classes={{ root: classes.avatarSize }} src={bankLogo} {...rest} />
+    return <Avatar classes={{ root: classes.avatarSize }} src={src} {...rest} />
 
-    }
-
-    return (
-
-      <Avatar classes={{ root: classes.avatarSize }} src={"data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))} {...rest} />
-
-
-
-    )
   }
 }
 
@@ -152,71 +138,24 @@ class AvatarChip_ extends Component {
     const centerX = left + width / 2;
     const centerY = top + height / 2;
 
-    if (centerX <= window.innerWidth / 2 && centerY <= window.innerHeight / 2) {
-      this.setState(pre => {
-        return {
-          open: true,
-          transOriginH: "left",
-          transOriginV: "top",
-          anchorPos: { "left": Math.round(left), "top": Math.round(top + height) + 8 },
 
-        }
-      });
+    this.setState(pre => {
+      return {
+        open: true,
+        transOriginH: centerX <= window.innerWidth / 2 ? "left" : "right",
+        transOriginV: centerY <= window.innerHeight / 2 ? "top" : "bottom",
+        anchorPos: {
+          "left": centerX <= window.innerWidth / 2 ? Math.round(left) : Math.round(left + width),
+          "top": centerY <= window.innerHeight / 2 ? Math.round(top + height) + 8 : Math.round(top) - 8
+        },
 
+      }
+    });
 
-    }
-    else if (centerX >= window.innerWidth / 2 && centerY <= window.innerHeight / 2) {
-      this.setState(pre => {
-        return {
-          open: true,
-          transOriginH: "right",
-          transOriginV: "top",
-          anchorPos: { "left": Math.round(left + width), "top": Math.round(top + height) + 8 },
-
-        }
-      });
-    }
-    else if (centerX <= window.innerWidth / 2 && centerY >= window.innerHeight / 2) {
-
-      this.setState(pre => {
-
-
-        return {
-          open: true,
-          transOriginH: "left",
-          transOriginV: "bottom",
-          anchorPos: { "left": Math.round(left), "top": Math.round(top) - 8, },
-
-        }
-      });
-
-    }
-    else if (centerX >= window.innerWidth / 2 && centerY >= window.innerHeight / 2) {
-
-      this.setState(pre => {
-        return {
-          open: true,
-          transOriginH: "right",
-          transOriginV: "bottom",
-          anchorPos: { "left": Math.round(left + width), "top": Math.round(top) - 8, },
-
-        }
-      });
-
-    }
-
-
-
-
-
-
-
-
+   
   };
 
   handlePopoverClose = () => {
-    // alert("out")
-    //this.setState({ anchorEl: null, open: false });
     this.setState(pre => { return { ...pre, open: false } });
   };
 
@@ -237,17 +176,9 @@ class AvatarChip_ extends Component {
 
 
     return (
-      <div style={{ backgroundColor: "pink", width: "fit-content" }}
-
-
-
-
-
-      >
-
+      <div style={{ backgroundColor: "pink", width: "fit-content", display:"inline-block" }}    >
 
         <Chip
-
           classes={{ root: classes.chipSize }}
           avatar={<AvatarLogo size={size} personName={personName} />}
           label={personName}
@@ -258,7 +189,6 @@ class AvatarChip_ extends Component {
           // aria-haspopup="true"
           //     innerRef={this.state.anchorEl}
           ref={this.anchorRef}
-
         />
 
         <Popover
@@ -273,21 +203,16 @@ class AvatarChip_ extends Component {
           anchorReference="anchorPosition"
           anchorEl={this.anchorRef.current}
           anchorOrigin={{
-
             horizontal: "left",
             vertical: "bottom",
-
-
           }}
           anchorPosition={{ ...this.state.anchorPos, }}
           transformOrigin={{
             horizontal: this.state.transOriginH,
             vertical: this.state.transOriginV,
-
           }}
 
-
-          //    onClose={this.handlePopoverClose}
+          onClose={this.handlePopoverClose}
           disableRestoreFocus
           PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
         >
