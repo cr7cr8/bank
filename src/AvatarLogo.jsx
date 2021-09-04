@@ -68,8 +68,10 @@ const makingStyleObj = function (...args) {
     chipSize: ({ size = "40px", personName, ...props }) => {
       const size_ = Array.isArray(size) ? size : [size]
       return {
-        ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
-
+        //   ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
+        height: "auto",
+        paddingTop: "4px",
+        paddingBottom: "4px",
         "& .MuiChip-label": {
           "fontWeight": "bold",
           ...breakpointsAttribute(["fontSize", ...size_]), //avatar label size
@@ -183,9 +185,9 @@ class AvatarChip_ extends Component {
           avatar={<AvatarLogo size={size} personName={personName} />}
           label={personName}
           {...rest}
-          {...this.props.hoverContent&&{onMouseEnter:this.handlePopoverOpen}}
-          {...this.props.hoverContent&&{onMouseLeave:this.handlePopoverClose}}
-     
+          {...this.props.hoverContent && { onMouseEnter: this.handlePopoverOpen }}
+          {...this.props.hoverContent && { onMouseLeave: this.handlePopoverClose }}
+
           // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
           // aria-haspopup="true"
           //     innerRef={this.state.anchorEl}
@@ -213,13 +215,13 @@ class AvatarChip_ extends Component {
             vertical: this.state.transOriginV,
           }}
 
-       //   onClose={this.handlePopoverClose}
+          //   onClose={this.handlePopoverClose}
           disableRestoreFocus
           PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
         >
           {this.props.hoverContent}
         </Popover>}
-      
+
       </div>
 
     )

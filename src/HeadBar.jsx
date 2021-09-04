@@ -108,6 +108,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomStyle: "solid",
     borderBottomWidth: "5px",
     borderBottomColor: theme.palette.primary.light,
+    flexWrap:"wrap",
   },
   logoBox: {
     display: "flex",
@@ -151,51 +152,54 @@ export default function HeadBar() {
       <AppBar position="static">
         <Toolbar classes={{ root: classes.appBar }}>
 
-            <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
-              label={
-                <>
-                  <Typography variant="h5" >
-                    宁波银行客户统一视图
+          <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
+            label={
+              <>
+                <Typography variant="h5" >
+                  宁波银行客户统一视图
                   </Typography>
-                  <Typography variant="h5" style={{ fontSize: "0.8rem",color: theme.palette.text.secondary }}>
-                    BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+                <Typography variant="h5" style={{ fontSize: "0.8rem", color: theme.palette.text.secondary }}>
+                  BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
                </Typography>
-                </>
-              }
-              hoverContent={
-                <>
-                  <Typography variant="h5" >宁波银行客户统一视图</Typography>
-                  <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
-                    BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+              </>
+            }
+            hoverContent={
+              <>
+                <Typography variant="h5" >宁波银行客户统一视图</Typography>
+                <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
+                  BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
                   </Typography>
-                </>
-              }
-            />
-        
+              </>
+            }
+          />
+
 
 
           <AvatarChip
-            size={["1.8rem"]} personName={"毛大帅"}
+            size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"}
             label={
               <>
-                <Typography variant="h5" style={{ fontSize: "0.9rem", fontWeight: "bold" }}>
-                  毛大帅
+                <Typography variant="h5" style={{ fontSize: "1rem", }}>
+                  06355 马小帅
               </Typography>
-                <Typography variant="h5" style={{ fontSize: "0.6rem", display: "block", color: theme.palette.text.secondary }}>
-                  业务经理
+                <Typography variant="h5" style={{ fontSize: "0.8rem", display: "block", color: theme.palette.text.secondary }}>
+                  宁波银行总行法律合规部
               </Typography>
               </>
             }
             hoverContent={
               <>
-                <Typography variant="h5" >毛大帅</Typography>
-                <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
-                  业务经理
-                </Typography>
+                <div style={{display:"flex",justifyContent:"center"}}><AvatarLogo size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} /></div>
+                <Typography variant="h5" style={{ fontSize: "1rem", }}>
+                  06355 马小帅
+              </Typography>
+                <Typography variant="h5" style={{ fontSize: "0.8rem", display: "block", color: theme.palette.text.secondary }}>
+                  宁波银行总行法律合规部
+              </Typography>
               </>
             }
           />
-         
+
         </Toolbar>
 
       </AppBar>

@@ -50,27 +50,33 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-
+import Hidden from '@material-ui/core/Hidden';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
+    // flexShrink: 1,
+    // flexBasis: 0,
+
   },
 
   listRoot: {
-    width: '100%',
-    maxWidth: 220,
+    width: "fit-content",
+    flexGrow: 0,
+
+    // width: '100%',
+    // maxWidth: 220,
     backgroundColor: blue[400],//theme.palette.background.paper,
     //color:"white",
-    padding:0,
+    padding: 0,
 
     "& >.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button": {
-      backgroundColor:blue[400],
+      backgroundColor: blue[400],
       color: "white",
     },
-    "& >.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button:hover":{
-      backgroundColor:blue[100],
+    "& >.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button:hover": {
+      backgroundColor: blue[100],
       color: blue[400],
     },
 
@@ -82,28 +88,28 @@ const useStyles = makeStyles((theme) => ({
     // "& .MuiButtonBase-root:hover": {
     //   backgroundColor: blue[200],
     // },
-    "& .MuiCollapse-container":{
-      backgroundColor:blue[50],
-      color:blue[400],
-      borderBottomStyle:"solid",
-      borderBottomColor:blue[400],
-      borderBottomWidth:"1px",
+    "& .MuiCollapse-container": {
+      backgroundColor: blue[50],
+      color: blue[400],
+      borderBottomStyle: "solid",
+      borderBottomColor: blue[400],
+      borderBottomWidth: "1px",
     },
-    "& .MuiCollapse-container:hover":{
-      backgroundColor:blue[400],
-      color:"white",
-      borderBottomStyle:"solid",
-      borderBottomColor:blue[400],
-      borderBottomWidth:"1px",
-    
+    "& .MuiCollapse-container:hover": {
+      backgroundColor: blue[400],
+      color: "white",
+      borderBottomStyle: "solid",
+      borderBottomColor: blue[400],
+      borderBottomWidth: "1px",
+
     },
 
 
 
   },
   nested: {
-   // paddingLeft: theme.spacing(4),
-   textAlign:"center"
+    // paddingLeft: theme.spacing(4),
+    textAlign: "center"
   },
 
 
@@ -133,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logoBox: {
     display: "flex",
-   //  justifyContent:"space-around",
+    //  justifyContent:"space-around",
     // width:"3000px",
     // backgroundColor:"lightblue",
     "& > div:nth-child(2)": {
@@ -145,21 +151,21 @@ const useStyles = makeStyles((theme) => ({
       //   backgroundColor: "pink"
     }
   },
-  avatarBox:{
+  avatarBox: {
     display: "flex"
   },
 
-  avatarRoot:{
-    width:"2rem",
-    height:"2rem",
+  avatarRoot: {
+    width: "2rem",
+    height: "2rem",
   }
 
- 
+
 
 }));
 
 
-export default function Bank() {
+export default function LeftBar() {
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -189,7 +195,7 @@ export default function Bank() {
     setOpen5(!open5);
   };
 
-  
+
   const handleClick6 = () => {
     setOpen6(!open6);
   };
@@ -199,41 +205,10 @@ export default function Bank() {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar classes={{ root: classes.appBar }}>
-
-
-          <Box classes={{ root: classes.logoBox }}>
-
-            <Avatar
-              src={bankLogo}
-              className={classes.logo}
-              //classes={{ root: classes.logo }}
-            />
-
-            <Box>
-              <Typography variant="h5" style={{ display: "1em", display: "block" }}>
-                宁波银行客户统一视图
-              </Typography>
-              <Typography variant="h5" style={{ fontSize: "0.5em", display: "block" }}>
-                BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
-              </Typography>
-
-            </Box>
-          </Box>
-
-
-          <Box classes={{ root: classes.logoBox }}>
-            <Avatar classes={{root: classes.avatarRoot}} src={bankLogo}/>
-          </Box>
-        
-
-        </Toolbar>
-      </AppBar>
 
 
       <List
-        component="nav"
+        // component="nav"
         // aria-labelledby="nested-list-subheader"
         // subheader={
         //   <ListSubheader component="div" id="nested-list-subheader">
@@ -248,7 +223,11 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="客户视图" />
+
+          <Hidden smDown>
+            <ListItemText primary="客户视图" />
+          </Hidden>
+
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -280,7 +259,9 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="任务管理" />
+          <Hidden smDown>
+            <ListItemText primary="任务管理" />
+          </Hidden>
           {open2 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open2} timeout="auto" unmountOnExit>
@@ -304,7 +285,11 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="后督检查" />
+
+          <Hidden smDown>
+            <ListItemText primary="后督检查" />
+          </Hidden>
+
           {open3 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open3} timeout="auto" unmountOnExit>
@@ -326,7 +311,11 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="受益人识别" />
+
+          <Hidden smDown>
+            <ListItemText primary="受益人识别" />
+          </Hidden>
+
           {open4 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open4} timeout="auto" unmountOnExit>
@@ -349,7 +338,9 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="配置管理" />
+          <Hidden smDown>
+            <ListItemText primary="配置管理" />
+          </Hidden>
           {open5 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open5} timeout="auto" unmountOnExit>
@@ -393,7 +384,9 @@ export default function Bank() {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
+          <Hidden smDown>
           <ListItemText primary="报表查询" />
+          </Hidden>
           {open6 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
 
@@ -433,12 +426,12 @@ export default function Bank() {
 
 
 
-        <FormControlLabel
+        {/* <FormControlLabel
           value="start"
           control={<Radio color="primary" />}
           label="Start"
           labelPlacement="start"
-        />
+        /> */}
 
 
 
