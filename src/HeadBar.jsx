@@ -176,8 +176,8 @@ export default function HeadBar() {
 
 
           <AvatarChip
-            size={["2.8rem"]} personName={"06355 马小dsdss"}
-
+            size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} 
+          //  src="https://picsum.photos/200/300"
             label={
               <>
                 <Typography variant="h5" style={{ fontSize: "1rem", }}>
@@ -188,6 +188,7 @@ export default function HeadBar() {
               </Typography>
               </>
             }
+            //label={<></>}
             hoverContent={
               <>
                 <div style={{ display: "flex", justifyContent: "center" }}><AvatarLogo size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} /></div>

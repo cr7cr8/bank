@@ -73,11 +73,13 @@ const makingStyleObj = function (...args) {
         height: "auto",
         paddingTop: "4px",
         paddingBottom: "4px",
+        //   borderRadius:"1000px",
+        // borderRadius: "1000px",
 
-        ...(!label) && (!personName) && { backgroundColor: "transparent", },
+        ...(!label) && (!personName) && { backgroundColor: "transparent", borderRadius: "1000px", },
 
         ...(label) && (!(label && label.props && label.props.children)) && {
-          backgroundColor: "transparent",
+          backgroundColor: "transparent", borderRadius: "1000px",
         },
 
         "& .MuiChip-label": {
@@ -130,10 +132,14 @@ const makingStyleObj = function (...args) {
 class AvatarLogo_ extends Component {
 
   render() {
-    const { classes, personName, ...rest } = this.props
-    const src = personName === "bank" ? bankLogo : "data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))
+    const { classes, personName, src, ...rest } = this.props
+    const src_ = personName === "bank" ? bankLogo : "data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))
 
-    return <Avatar classes={{ root: classes.avatarSize }} src={src} {...rest} />
+    //  const src="https://picsum.photos/200/300"
+
+    console.log(this.props.src)
+
+    return <Avatar classes={{ root: classes.avatarSize }} src={this.props.src || src_} {...rest} />
 
   }
 }
@@ -207,7 +213,7 @@ class AvatarChip_ extends Component {
 
         <Chip
           classes={{ root: classes.chipSize }}
-          avatar={<AvatarLogo size={size} personName={personName} />}
+          avatar={<AvatarLogo size={size} personName={personName} src={this.props.src} />}
           label={personName}
           {...rest}
           {...this.props.hoverContent && { onMouseEnter: this.handlePopoverOpen }}
