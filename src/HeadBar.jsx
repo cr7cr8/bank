@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomStyle: "solid",
     borderBottomWidth: "5px",
     borderBottomColor: theme.palette.primary.light,
-    flexWrap:"wrap",
+    flexWrap: "wrap",
   },
   logoBox: {
     display: "flex",
@@ -176,7 +176,8 @@ export default function HeadBar() {
 
 
           <AvatarChip
-            size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"}
+            size={["2.8rem"]} personName={"06355 马小dsdss"}
+
             label={
               <>
                 <Typography variant="h5" style={{ fontSize: "1rem", }}>
@@ -189,7 +190,7 @@ export default function HeadBar() {
             }
             hoverContent={
               <>
-                <div style={{display:"flex",justifyContent:"center"}}><AvatarLogo size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} /></div>
+                <div style={{ display: "flex", justifyContent: "center" }}><AvatarLogo size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} /></div>
                 <Typography variant="h5" style={{ fontSize: "1rem", }}>
                   06355 马小帅
               </Typography>

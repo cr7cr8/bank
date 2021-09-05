@@ -67,14 +67,22 @@ const makingStyleObj = function (...args) {
     },
     chipSize: ({ size = "40px", personName, label, ...props }) => {
       const size_ = Array.isArray(size) ? size : [size]
+      //console.log(label, label && label.props && label.props.children)
       return {
         //   ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
         height: "auto",
         paddingTop: "4px",
         paddingBottom: "4px",
+
+        ...(!label) && (!personName) && { backgroundColor: "transparent", },
+
+        ...(label) && (!(label && label.props && label.props.children)) && {
+          backgroundColor: "transparent",
+        },
+
         "& .MuiChip-label": {
           "fontWeight": "bold",
-          ...(label || personName) && { "paddingRight": "5px" },
+          //  ...(label || personName) && { "paddingRight": "5px" },
           ...breakpointsAttribute(["fontSize", ...size_]), //avatar label size
         },
 
@@ -85,7 +93,11 @@ const makingStyleObj = function (...args) {
           }
         },
 
-
+        ...(label) && (!(label && label.props && label.props.children)) && {
+          "& .MuiChip-avatar": {
+            marginRight: "-19px",
+          }
+        },
 
 
 
