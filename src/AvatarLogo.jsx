@@ -48,17 +48,13 @@ const muiTheme = createMuiTheme({})
 
 ////////////////////////////////////////////////////////////////////////////
 
-
-
 const makingStyleObj = function (...args) {
 
   return {
     avatarSize: ({ size = "40px", personName, ...props }) => {
 
-
       const size_ = Array.isArray(size) ? size : [size]
       return {
-
         "&.MuiAvatar-circle": {
           ...breakpointsAttribute(["width", ...size_], ["height", ...size_]), //avatar size
         }
@@ -100,9 +96,6 @@ const makingStyleObj = function (...args) {
             marginRight: "-19px",
           }
         },
-
-
-
       }
 
     },
@@ -123,21 +116,11 @@ const makingStyleObj = function (...args) {
   }
 }
 
-
-
-
-
-
-
 class AvatarLogo_ extends Component {
 
   render() {
     const { classes, personName, src, ...rest } = this.props
     const src_ = personName === "bank" ? bankLogo : "data:image/svg+xml;base64," + btoa(personName && multiavatar(personName))
-
-    //  const src="https://picsum.photos/200/300"
-
-    console.log(this.props.src)
 
     return <Avatar classes={{ root: classes.avatarSize }} src={this.props.src || src_} {...rest} />
 
