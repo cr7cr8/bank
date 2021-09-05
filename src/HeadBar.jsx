@@ -176,10 +176,11 @@ export default function HeadBar() {
 
 
           <AvatarChip
-            size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} 
+            size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"}
 
-            avatarProps={{onClick:function(){alert("Ds")}}}
-          //  src="https://picsum.photos/200/300"
+            //onClick={function () { alert("fdfdsfsd") }}
+            //avatarProps={{ onClick: function (e) { e.stopPropagation(); alert("Ds") } }}
+            //src="https://picsum.photos/200/300"
             label={
               <>
                 <Typography variant="h5" style={{ fontSize: "1rem", }}>
