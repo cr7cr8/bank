@@ -65,7 +65,7 @@ const makingStyleObj = function (...args) {
       }
 
     },
-    chipSize: ({ size = "40px", personName, ...props }) => {
+    chipSize: ({ size = "40px", personName, label, ...props }) => {
       const size_ = Array.isArray(size) ? size : [size]
       return {
         //   ...breakpointsAttribute(["height", ...size_.map(item => { return `calc( ${item} + ${muiTheme.spacing(1)}px )` })]),
@@ -74,8 +74,21 @@ const makingStyleObj = function (...args) {
         paddingBottom: "4px",
         "& .MuiChip-label": {
           "fontWeight": "bold",
+          ...(label || personName) && { "paddingRight": "5px" },
           ...breakpointsAttribute(["fontSize", ...size_]), //avatar label size
-        }
+        },
+
+
+        ...(!label) && (!personName) && {
+          "& .MuiChip-avatar": {
+            marginRight: "-19px",
+          }
+        },
+
+
+
+
+
       }
 
     },
@@ -229,7 +242,6 @@ class AvatarChip_ extends Component {
 }
 
 export const AvatarChip = withStylesProps(makingStyleObj)(AvatarChip_);
-
 
 
 
