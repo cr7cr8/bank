@@ -177,6 +177,8 @@ export default function HeadBar() {
 
           <AvatarChip
             size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} 
+
+            avatarProps={{onClick:function(){alert("Ds")}}}
           //  src="https://picsum.photos/200/300"
             label={
               <>

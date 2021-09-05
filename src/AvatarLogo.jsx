@@ -69,7 +69,7 @@ const makingStyleObj = function (...args) {
         height: "auto",
         paddingTop: "4px",
         paddingBottom: "4px",
-        //   borderRadius:"1000px",
+
         // borderRadius: "1000px",
 
         ...(!label) && (!personName) && { backgroundColor: "transparent", borderRadius: "1000px", },
@@ -188,15 +188,16 @@ class AvatarChip_ extends Component {
   }
 
   render() {
-    const { classes, size, personName, ...rest } = this.props
+    const { classes, size, personName, avatarProps, ...rest } = this.props
 
+    const { src, ...avatarRest } = this.props.avatarProps || {}
 
     return (
       <div style={{ width: "fit-content", display: "inline-block" }}    >
 
         <Chip
           classes={{ root: classes.chipSize }}
-          avatar={<AvatarLogo size={size} personName={personName} src={this.props.src} />}
+          avatar={<AvatarLogo size={size} personName={personName} src={this.props.src}{...avatarRest} />}
           label={personName}
           {...rest}
           {...this.props.hoverContent && { onMouseEnter: this.handlePopoverOpen }}
