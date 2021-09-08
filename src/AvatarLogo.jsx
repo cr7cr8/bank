@@ -5,7 +5,7 @@ import bankLogo from "./bankLogo.png";
 import { withStyles, makeStyles, } from '@material-ui/styles'
 
 import { createMuiTheme, Avatar, Chip, Popover, Typography } from "@material-ui/core";
-
+import Grow from '@material-ui/core/Grow';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
 
@@ -141,12 +141,33 @@ class AvatarChip_ extends Component {
       transOriginH: "left",
       transOriginV: "top",
       anchorPos: { "top": 0, "left": 0 },
+      //firstTime: true,
 
     }
 
     this.anchorRef = null //  React.createRef();
 
   };
+
+  // componentDidMount() {
+  //   this.setState(pre => {
+  //     return {
+  //       ...pre,
+  //       firstTime: false
+  //     }
+  //   })
+  // }
+
+  componentWillUpdate() {
+    // this.setState(pre => {
+    //   return {
+    //     ...pre,
+    //     firstTime: false
+    //   }
+    // })
+
+  }
+
 
   handlePopoverOpen = (event) => {
 
@@ -176,11 +197,6 @@ class AvatarChip_ extends Component {
   };
 
 
-  componentDidMount() {
-
-
-  }
-
   componentDidUpdate(preProp, preState) {
 
 
@@ -188,59 +204,69 @@ class AvatarChip_ extends Component {
   }
 
   render() {
-    const { classes, size, personName, avatarProps, ...rest } = this.props
+    const { classes, size, personName, avatarProps, noAvatar = false, ...rest } = this.props
 
     const { src, ...avatarRest } = this.props.avatarProps || {}
 
     return (
-      <div style={{ width: "fit-content", display: "inline-block" }}    >
+      // <Grow in={true} >
+        <div style={{ width: "fit-content", display: "inline-block" }}    >
 
-        <Chip
-          classes={{ root: classes.chipSize }}
-          avatar={<AvatarLogo size={size} personName={personName} src={this.props.src}{...avatarRest} />}
-          label={personName}
-          {...rest}
-          {...this.props.hoverContent && { onMouseEnter: this.handlePopoverOpen }}
-          {...this.props.hoverContent && { onMouseLeave: this.handlePopoverClose }}
+          <Chip
+            classes={{ root: classes.chipSize }}
+            {...!noAvatar && { avatar: <AvatarLogo size={size} personName={personName} src={this.props.src}{...avatarRest} /> }}
 
-          // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
-          // aria-haspopup="true"
-          // innerRef={this.state.anchorEl}
-          //  ref={this.anchorRef}
-          ref={(element) => { this.anchorRef = element }}
-        />
 
-        {this.props.hoverContent && <Popover
+            // avatar={<AvatarLogo size={size} personName={personName} src={this.props.src}{...avatarRest} />}
+            label={personName}
+     
+            {...rest}
+            {...this.props.hoverContent && { onMouseEnter: this.handlePopoverOpen }}
+            {...this.props.hoverContent && { onMouseLeave: this.handlePopoverClose }}
 
-          marginThreshold={0}
-          //id="mouse-over-popover"
-          className={classes.popover}
-          classes={{
-            paper: classes.paper,
-          }}
-          open={this.state.open}
-          anchorReference="anchorPosition"
-         // anchorEl={this.anchorRef.current}
-          anchorEl={this.anchorRef}
-          anchorOrigin={{
-            horizontal: "left",
-            vertical: "bottom",
-          }}
-          anchorPosition={{ ...this.state.anchorPos, }}
-          transformOrigin={{
-            horizontal: this.state.transOriginH,
-            vertical: this.state.transOriginV,
-          }}
+            // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
+            // aria-haspopup="true"
+            // innerRef={this.state.anchorEl}
+            //  ref={this.anchorRef}
+            ref={(element) => { this.anchorRef = element }}
+          />
 
-          //   onClose={this.handlePopoverClose}
-          disableRestoreFocus
-          PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
-        >
-          {this.props.hoverContent}
-        </Popover>}
 
-      </div>
 
+
+
+
+          {this.props.hoverContent && <Popover
+
+            marginThreshold={0}
+            //id="mouse-over-popover"
+            className={classes.popover}
+            classes={{
+              paper: classes.paper,
+            }}
+            open={this.state.open}
+            anchorReference="anchorPosition"
+            // anchorEl={this.anchorRef.current}
+            anchorEl={this.anchorRef}
+            anchorOrigin={{
+              horizontal: "left",
+              vertical: "bottom",
+            }}
+            anchorPosition={{ ...this.state.anchorPos, }}
+            transformOrigin={{
+              horizontal: this.state.transOriginH,
+              vertical: this.state.transOriginV,
+            }}
+
+            //   onClose={this.handlePopoverClose}
+            disableRestoreFocus
+            PaperProps={{ onMouseEnter: this.handlePopoverOpen, onMouseLeave: this.handlePopoverClose, elevation: 2 }}
+          >
+            {this.props.hoverContent}
+          </Popover>}
+
+        </div>
+      // </Grow>
     )
   }
 }

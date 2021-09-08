@@ -19,6 +19,7 @@ import {
 
 
 import yellow from '@material-ui/core/colors/yellow';
+import blue from '@material-ui/core/colors/blue';
 export const Context1 = createContext();
 const breakpoints = createBreakpoints({})
 
@@ -53,17 +54,8 @@ function breakpointsAttribute(...args) {
 export default function Context1Provider(props) {
 
 
-  const [editorContent, setEditorContent] = useState(
-    EditorState.createWithContent(ContentState.createFromText(''))
-  );
 
   const [isLight, setIsLight] = useState(true)
-  const [picArr,setPicArr] = useState([])
-
-  const [postArr, setPostArr] = useState([])
-  const [postPicArr, setPostPicArr] = useState([])
-
-  const [backImg,setBackImg] = useState()
 
   const sizeArr = ["1.5rem", "1.5rem", "1.5rem", "1.5rem", "1.5rem"]
   const iconSizeArr = ["2rem", "2rem", "2rem", "2rem", "2rem"]
@@ -86,10 +78,19 @@ export default function Context1Provider(props) {
       },
 
       overrides: {
+        MuiTabs: {
+          root: {
+            "& .MuiTabs-indicator": {
+              backgroundColor: blue[400]  //"#3f51b5"//blue[400],
+            }
+          }
+
+        },
+
 
         MuiAvatar: {
           root: {
-       //     ...breakpointsAttribute(["width", ...iconSizeArr], ["height", ...iconSizeArr]),
+            //     ...breakpointsAttribute(["width", ...iconSizeArr], ["height", ...iconSizeArr]),
           }
         },
 
@@ -133,17 +134,18 @@ export default function Context1Provider(props) {
   const lgSizeObj = { xs: "2.5rem", sm: "2.5rem", md: "2.5rem", lg: "2.5rem", xl: "2.5rem" }
   const smSizeObj = { xs: "1rem", sm: "1rem", md: "1rem", lg: "1rem", xl: "1rem" }
 
-  
+
+
+  const [tabArr, setTabArr] = useState([])
+  const [tabValue, setTabValue] = useState("")
+
 
   return (
     <Context1.Provider value={{
-      isLight, setIsLight, theme, breakpointsAttribute, editorContent,
-      setEditorContent, lgSizeObj, smSizeObj, deviceSize,
-      picArr, setPicArr,
-      postArr, setPostArr,
-      postPicArr, setPostPicArr,
-      backImg,setBackImg,
-
+      isLight, setIsLight, theme, breakpointsAttribute,
+      lgSizeObj, smSizeObj, deviceSize,
+      tabArr, setTabArr,
+      tabValue, setTabValue,
     }}>
       <ThemeProvider theme={theme}>
         {props.children}

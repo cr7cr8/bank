@@ -17,7 +17,7 @@ import {
   isFirefox,
   isChrome,
   browserName,
-  engineName,    
+  engineName,
 } from "react-device-detect";
 
 import bankLogo from "./bankLogo.png";
@@ -201,7 +201,7 @@ export default function LeftBar() {
   };
 
 
-
+  const { tabArr, setTabArr, tabValue, setTabValue } = useContext(Context1)
 
   return (
     <>
@@ -232,10 +232,20 @@ export default function LeftBar() {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              {/* <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon> */}
+            <ListItem button className={classes.nested}
+              onClick={function () {
+                if (tabArr.includes("客户信息查询")) {
+           
+                    setTabValue("客户信息查询")
+               
+                }
+                else {
+                  setTabArr(arr => {  arr.push("客户信息查询") ;return arr  })
+                 
+                    setTabValue("客户信息查询")
+             
+                }
+              }}>      
               <ListItemText primary="客户信息查询" />
             </ListItem>
           </List>
@@ -243,10 +253,21 @@ export default function LeftBar() {
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              {/* <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon> */}
+            <ListItem button className={classes.nested}
+             onClick={function () {
+              if (tabArr.includes("账户信息查询")) {
+              
+                  setTabValue("账户信息查询")
+               
+              }
+              else {
+                setTabArr(arr => {  arr.push("账户信息查询") ;return arr  })
+              
+                  setTabValue("账户信息查询")
+             
+              
+              }
+            }}>   
               <ListItemText primary="账户信息查询" />
             </ListItem>
           </List>
@@ -255,178 +276,213 @@ export default function LeftBar() {
 
 
 
-        <ListItem button onClick={handleClick2}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
-            <ListItemText primary="任务管理" />
-          </Hidden>
-          {open2 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open2} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="任务发起" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open2} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="任务查看" />
-            </ListItem>
-          </List>
-        </Collapse>
+      <ListItem button onClick={handleClick2}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <Hidden smDown>
+          <ListItemText primary="任务管理" />
+        </Hidden>
+        {open2 ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open2} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}
+          
+          onClick={function () {
+            if (tabArr.includes("任务发起")) {
+            
+                setTabValue("任务发起")
+             
+            }
+            else {
+              setTabArr(arr => {  arr.push("任务发起") ;return arr  })
+            
+                setTabValue("任务发起")
+           
+            
+            }
+          }}>   
+          
+          
+            <ListItemText primary="任务发起" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open2} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}
+          
+          onClick={function () {
+            if (tabArr.includes("任务查看")) {
+            
+                setTabValue("任务查看")
+             
+            }
+            else {
+              setTabArr(arr => {  arr.push("任务查看") ;return arr  })
+            
+                setTabValue("任务查看")
+           
+            
+            }
+          }}
+          
+          
+          >
+            <ListItemText primary="任务查看" />
+          </ListItem>
+        </List>
+      </Collapse>
 
 
 
-        <ListItem button onClick={handleClick3}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
+      <ListItem button onClick={handleClick3}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
 
-          <Hidden smDown>
-            <ListItemText primary="后督检查" />
-          </Hidden>
+        <Hidden smDown>
+          <ListItemText primary="后督检查" />
+        </Hidden>
 
-          {open3 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open3} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="发起检查任务" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open3} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="检查任务查看" />
-            </ListItem>
-          </List>
-        </Collapse>
+        {open3 ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open3} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="发起检查任务" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open3} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="检查任务查看" />
+          </ListItem>
+        </List>
+      </Collapse>
 
-        <ListItem button onClick={handleClick4}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
+      <ListItem button onClick={handleClick4}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
 
-          <Hidden smDown>
-            <ListItemText primary="受益人识别" />
-          </Hidden>
+        <Hidden smDown>
+          <ListItemText primary="受益人识别" />
+        </Hidden>
 
-          {open4 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open4} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="任务发起" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open4} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="任务查询" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-        <ListItem button onClick={handleClick5}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
-            <ListItemText primary="配置管理" />
-          </Hidden>
-          {open5 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="客户对比字段设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="质量校验设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="重新识别规则设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="白名单设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="参数设置" />
-            </ListItem>
-          </List>
-        </Collapse>
+        {open4 ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open4} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="任务发起" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open4} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="任务查询" />
+          </ListItem>
+        </List>
+      </Collapse>
 
 
-        <ListItem button onClick={handleClick6}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
+      <ListItem button onClick={handleClick5}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <Hidden smDown>
+          <ListItemText primary="配置管理" />
+        </Hidden>
+        {open5 ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open5} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="客户对比字段设置" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open5} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="质量校验设置" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open5} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="重新识别规则设置" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open5} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="白名单设置" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <Collapse in={open5} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="参数设置" />
+          </ListItem>
+        </List>
+      </Collapse>
+
+
+      <ListItem button onClick={handleClick6}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <Hidden smDown>
           <ListItemText primary="报表查询" />
-          </Hidden>
-          {open6 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
+        </Hidden>
+        {open6 ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
 
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="数据不一致报表" />
-            </ListItem>
-          </List>
-        </Collapse>
+      <Collapse in={open6} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="数据不一致报表" />
+          </ListItem>
+        </List>
+      </Collapse>
 
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="客户质量维护报表" />
-            </ListItem>
-          </List>
-        </Collapse>
+      <Collapse in={open6} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="客户质量维护报表" />
+          </ListItem>
+        </List>
+      </Collapse>
 
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="尽职调查报表" />
-            </ListItem>
-          </List>
-        </Collapse>
+      <Collapse in={open6} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="尽职调查报表" />
+          </ListItem>
+        </List>
+      </Collapse>
 
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="后督检查报表" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
+      <Collapse in={open6} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="后督检查报表" />
+          </ListItem>
+        </List>
+      </Collapse>
 
 
 
-        {/* <FormControlLabel
+
+
+      {/* <FormControlLabel
           value="start"
           control={<Radio color="primary" />}
           label="Start"
@@ -437,7 +493,7 @@ export default function LeftBar() {
 
 
 
-        {/* <ListItem button>
+      {/* <ListItem button>
           <ListItemIcon        >
             <SendIcon />
           </ListItemIcon  >
@@ -450,7 +506,7 @@ export default function LeftBar() {
           <ListItemText primary="Drafts" />
         </ListItem> */}
 
-      </List>
+    </List>
 
 
     </>
