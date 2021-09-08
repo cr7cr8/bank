@@ -144,13 +144,13 @@ class AvatarChip_ extends Component {
 
     }
 
-    this.anchorRef = React.createRef();
+    this.anchorRef = null //  React.createRef();
 
   };
 
   handlePopoverOpen = (event) => {
 
-    const { left, right, width, top, bottom, height } = this.anchorRef.current.getBoundingClientRect()
+    const { left, right, width, top, bottom, height } = this.anchorRef.getBoundingClientRect() //this.anchorRef.current.getBoundingClientRect()
     const centerX = left + width / 2;
     const centerY = top + height / 2;
 
@@ -205,8 +205,9 @@ class AvatarChip_ extends Component {
 
           // aria-owns={this.state.open ? 'mouse-over-popover' : undefined}
           // aria-haspopup="true"
-          //     innerRef={this.state.anchorEl}
-          ref={this.anchorRef}
+          // innerRef={this.state.anchorEl}
+          //  ref={this.anchorRef}
+          ref={(element) => { this.anchorRef = element }}
         />
 
         {this.props.hoverContent && <Popover
@@ -219,7 +220,8 @@ class AvatarChip_ extends Component {
           }}
           open={this.state.open}
           anchorReference="anchorPosition"
-          anchorEl={this.anchorRef.current}
+         // anchorEl={this.anchorRef.current}
+          anchorEl={this.anchorRef}
           anchorOrigin={{
             horizontal: "left",
             vertical: "bottom",

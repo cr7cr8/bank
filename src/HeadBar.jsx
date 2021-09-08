@@ -170,7 +170,7 @@ export default function HeadBar() {
                 <Typography variant="h5" >宁波银行客户统一视图</Typography>
                 <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
                   BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
-                  </Typography>
+                </Typography>
               </>
             }
           />
