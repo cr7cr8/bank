@@ -128,8 +128,8 @@ class AvatarLogo_ extends Component {
 }
 
 
-const AvatarLogo = withStylesProps(makingStyleObj)(AvatarLogo_);
-export default AvatarLogo;
+export const AvatarLogo = withStylesProps(makingStyleObj)(AvatarLogo_);
+
 
 
 class AvatarChip_ extends Component {

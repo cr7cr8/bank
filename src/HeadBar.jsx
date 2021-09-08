@@ -26,9 +26,9 @@ import blue from '@material-ui/core/colors/blue';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import multiavatar from '@multiavatar/multiavatar'
 
-import { AvatarLogo, AvatarChip } from "avatarchip2";
+//import { AvatarLogo, AvatarChip } from "avatarchip2";
 
-//import AvatarChip, { AvatarLogo } from "AvatarChip/AvatarChip.jsx";
+import { AvatarChip, AvatarLogo } from "./AvatarLogo";
 
 
 

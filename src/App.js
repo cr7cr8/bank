@@ -15,7 +15,10 @@ import LeftBar from "./LeftBar";
 import HeadBar, { MyAvatar } from "./HeadBar";
 import MainPanel from "./MainPanel";
 
-import AvatarLogo, { AvatarChip } from "./AvatarLogo";
+//import AvatarLogo, { AvatarChip } from "./AvatarLogo";
+
+import { AvatarChip, AvatarLogo, } from "avatar-chip";
+
 function App() {
 
 
@@ -23,18 +26,13 @@ function App() {
     <>
       <CssBaseline />
 
-      {/* <AvatarChip
-         size={["1.8rem"]} personName={"jfdklsfjlk"}
-          label="fsd飞毛腿l"
-     //     style={{backgroundColor:"skyblue"}}
-      
-        /> */}
+
 
 
       <HeadBar />
-    
+
       {/* <MyAvatar size="10rem"/> */}
-      
+
       {/* <Grid container
         direction="row"
         justifyContent="flex-start"
@@ -54,14 +52,10 @@ function App() {
 
 
       <div style={{ display: "flex", width: "100%", height: "200px", backgroundColor: "pink", }}>
-        {/* <div style={{ display: "flex", width: "20%", height: "200px", backgroundColor: "#ffa", }}> */}
-          <LeftBar />
-        {/* </div> */}
 
+        <LeftBar />
+        <MainPanel />
 
-        {/* <div style={{ display: "flex", width: "80%", height: "200px", backgroundColor: "#ffa", }}> */}
-          <MainPanel />
-        {/* </div> */}
       </div>
 
     </>
