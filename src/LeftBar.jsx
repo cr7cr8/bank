@@ -1,10 +1,3 @@
-import { EditorState, ContentState, ContentBlock, CharacterMetadata, SelectionState, convertToRaw, convertFromRaw, RichUtils, Modifier, convertFromHTML, AtomicBlockUtils } from 'draft-js';
-import Editor from "draft-js-plugins-editor";
-import Immutable from 'immutable';
-import chainable from 'draft-js-plugins-chainable';
-import { stateToHTML } from 'draft-js-export-html';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } from 'react-html-parser';
-
 import { useState, useRef, useEffect, useContext, useCallback, createContext, useMemo } from 'react';
 import { Context1 } from "./Context1Provider"
 import { makeStyles, styled, useTheme } from '@material-ui/core/styles';
@@ -64,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   listRoot: {
-    width: "fit-content",
+    width: "100%",
     overflowWrap: "anywhere",
     flexGrow: 0,
-
+  //  overflow: "hidden",
     // width: '100%',
-    maxWidth: "10vw",
+  
     backgroundColor: blue[400],//theme.palette.background.paper,
     //color:"white",
     padding: 0,
@@ -110,9 +103,9 @@ const useStyles = makeStyles((theme) => ({
 
       ...breakpointsAttribute(["paddingLeft", "0px", "16px", "16px"], ["paddingRight", "0px", "16px", "16px"]),
 
-      borderTopWidth:"1px",
-      borderTopStyle:"solid",
-      borderTopColor:blue[400],
+      borderTopWidth: "1px",
+      borderTopStyle: "solid",
+      borderTopColor: blue[400],
     },
     "& .MuiListItem-gutters:hover": {
       backgroundColor: blue[100],
@@ -173,54 +166,15 @@ const useStyles = makeStyles((theme) => ({
     width: "2rem",
     height: "2rem",
   }
-
-
-
 }));
 
 
 export default function LeftBar() {
 
 
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-  const [open4, setOpen4] = useState(false);
-  const [open5, setOpen5] = useState(false);
-  const [open6, setOpen6] = useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleClick2 = () => {
-    setOpen2(!open2);
-  };
-
-  const handleClick3 = () => {
-    setOpen3(!open3);
-  };
-
-  const handleClick4 = () => {
-    setOpen4(!open4);
-  };
-
-  const handleClick5 = () => {
-    setOpen5(!open5);
-  };
-
-
-  const handleClick6 = () => {
-    setOpen6(!open6);
-  };
-
   const { tabArr, setTabArr, tabValue, setTabValue } = useContext(Context1)
   const classes = useStyles();
   const [categoryNameArr, setCategoryNameArr] = useState(Object.keys(leftBarCategory).map((item) => { return { categoryName: item, open: false, firstTime: true } }))
-
-  //alert(JSON.stringify(Object.keys(leftBarCategory)))
-
-  //alert(leftBarCategory["受益所有人识别"].length)
 
   return (
 
@@ -232,16 +186,12 @@ export default function LeftBar() {
           <React.Fragment key={categoryName}>
             <ListItem
               button
-              //    key={item.categoryName}
               onClick={function () {
                 setCategoryNameArr((categoryNameArr) => {
                   categoryNameArr[index].open = !open
-
                   return [...categoryNameArr]
                 })
-
               }} >
-
               <Hidden mdDown>
                 <ListItemIcon>
                   <InboxIcon />
@@ -254,37 +204,29 @@ export default function LeftBar() {
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit onExited={function () {
-
-              setCategoryNameArr((categoryNameArr) => {
+              categoryNameArr[index].firstTime && setCategoryNameArr((categoryNameArr) => {
                 categoryNameArr[index].firstTime = false
-
                 return [...categoryNameArr]
               })
-
-
             }}>
 
               {leftBarCategory[categoryName].map((taskName, taskIndex) => {
 
                 return (
-
                   <ConditionalWrapper
+                    key={taskName}
                     condition={firstTime}
-                    wrapper={Component => <Zoom key={taskName} in={true} style={{ transitionDelay: `${(taskIndex + 1) * 30}ms` }}>{Component}</Zoom>}
+                    wrapper={Component => <Zoom in={true} style={{ transitionDelay: `${(taskIndex + 1) * 30}ms` }}>{Component}</Zoom>}
                   >
-                    <List component="div" disablePadding key={taskName}>
+                    <List component="div" disablePadding >
                       <ListItem button className={classes.nested}
                         onClick={function () {
                           if (tabArr.includes(taskName)) {
-
                             setTabValue(taskName)
-
                           }
                           else {
                             setTabArr(arr => { arr.push(taskName); return arr })
-
                             setTabValue(taskName)
-
                           }
                         }}
                       >
@@ -292,25 +234,9 @@ export default function LeftBar() {
                       </ListItem>
                     </List>
                   </ConditionalWrapper>
-
-
-
                 )
-
-
               })}
             </Collapse>
-
-
-
-
-
-
-
-
-
-
-
           </React.Fragment>
         )
       })

@@ -14,6 +14,7 @@ import LeftBar from "./LeftBar";
 
 import HeadBar, { MyAvatar } from "./HeadBar";
 import MainPanel from "./MainPanel";
+import Drawer from "./Drawer"
 
 //import AvatarLogo, { AvatarChip } from "./AvatarLogo";
 
@@ -53,7 +54,9 @@ function App() {
       <Zoom in={true} style={{ transitionDelay: "200ms" }}>
         <div style={{ display: "flex", width: "100%", backgroundColor: "pink", }}>
 
-          <LeftBar />
+       
+          <Drawer />
+          {/* <LeftBar /> */}
           <MainPanel />
         </div>
       </Zoom>

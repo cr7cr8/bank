@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 10,
     width: 0,
+   
     //With flex-grow: 1, width:0,the item will consume all available space on the line after having factored in flex-basis / width.
     //initial width 0px, take the remaing space 10 out of / (flexGrow 10 ->mainPanel  +   flexGrow 0-> from left bar )
     backgroundColor: theme.palette.background.paper,
@@ -148,6 +149,9 @@ export default function ScrollableTabsButtonAuto() {
 
         return (
           <TabPanel value={tabValue} index={taskName} key={taskName}>
+           <Grow in={true}><Typography variant="h2">{taskName}</Typography></Grow> 
+           <Grow in={true}><Typography variant="h2">{taskName}</Typography></Grow> 
+           <Grow in={true}><Typography variant="h2">{taskName}</Typography></Grow> 
            <Grow in={true}><Typography variant="h2">{taskName}</Typography></Grow> 
           </TabPanel>
 
