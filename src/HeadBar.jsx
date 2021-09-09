@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Context1 } from "./Context1Provider"
 import { styled, useTheme } from '@material-ui/core/styles';
 
 import { withStyles, makeStyles } from '@material-ui/styles'
 
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu, Chip } from "@material-ui/core";
+import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu, Chip, Grow } from "@material-ui/core";
 import { Image, Brightness4, Brightness5, FormatBold, FormatItalic, FormatUnderlined, InsertEmoticon, PaletteOutlined } from "@material-ui/icons";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -149,32 +149,41 @@ export default function HeadBar() {
   const classes = useStyles()
   const theme = useTheme()
 
+  const [isIn, setIsIn] = React.useState(false)
+
+  useEffect(
+    function () {
+      setIsIn(true)
+    }, []
+  )
   return (
     <>
       <AppBar position="static">
         <Toolbar classes={{ root: classes.appBar }}>
-
-          <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
-            label={
-              <>
-                <Typography variant="h5" >
-                  宁波银行客户统一视图
+          <Grow in={true}>
+            <div>
+              <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
+                label={
+                  <>
+                    <Typography variant="h5" >
+                      宁波银行客户统一视图
                   </Typography>
-                <Typography variant="h5" style={{ fontSize: "0.8rem", color: theme.palette.text.secondary }}>
-                  BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+                    <Typography variant="h5" style={{ fontSize: "0.8rem", color: theme.palette.text.secondary }}>
+                      BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
                </Typography>
-              </>
-            }
-            hoverContent={
-              <>
-                <Typography variant="h5" >宁波银行客户统一视图</Typography>
-                <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
-                  BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
+                  </>
+                }
+                hoverContent={
+                  <>
+                    <Typography variant="h5" >宁波银行客户统一视图</Typography>
+                    <Typography variant="h5" style={{ fontSize: "0.8rem" }}>
+                      BANK OF NINGBO CUSTOME INFORMATION  SYSTEM
                 </Typography>
-              </>
-            }
-          />
-
+                  </>
+                }
+              />
+            </div>
+          </Grow>
 
 
           <AvatarChip

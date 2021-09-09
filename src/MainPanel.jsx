@@ -17,6 +17,8 @@ import { AvatarChip, AvatarLogo } from "./AvatarLogo";
 import { Context1 } from "./Context1Provider";
 
 import blue from '@material-ui/core/colors/blue';
+import { leftBarCategory, breakpointsAttribute, flatten } from "./config";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     //With flex-grow: 1, width:0,the item will consume all available space on the line after having factored in flex-basis / width.
     //initial width 0px, take the remaing space 10 out of / (flexGrow 10 ->mainPanel  +   flexGrow 0-> from left bar )
     backgroundColor: theme.palette.background.paper,
-  
+
   },
 }));
 
@@ -72,11 +74,13 @@ export default function ScrollableTabsButtonAuto() {
 
   const handleChange = (event, newValue) => {
 
-    //alert(newValue)
-    //setTabValue(newValue);
+
   };
 
 
+  const [taskNameArr, setTaskNameArr] = useState(flatten([...Object.keys(leftBarCategory).map((item) => {
+    return leftBarCategory[item]
+  })]))
 
 
 
@@ -108,9 +112,9 @@ export default function ScrollableTabsButtonAuto() {
                   <Grow in={true} key={label}>
                     <div>
                       <AvatarChip size={["0.9rem"]} personName={label} noAvatar={true}
-                        style={{ ...label === tabValue && { backgroundColor: blue[400], color: "white"} }}
+                        style={{ ...label === tabValue && { backgroundColor: blue[400], color: "white" } }}
                         label={
-                          <Typography style={{whiteSpace: "pre-wrap"}} >{label}</Typography>
+                          <Typography style={{ whiteSpace: "pre-wrap" }} >{label}</Typography>
 
                         }
 
@@ -139,57 +143,23 @@ export default function ScrollableTabsButtonAuto() {
 
         </Tabs>
       </AppBar>
-      <TabPanel value={tabValue} index={"客户信息查询"}>
-          <AvatarChip personName="tab1" label={<Typography>客户信息查询</Typography>} />
-      </TabPanel>
-      <TabPanel value={tabValue} index={"账户信息查询"}>
-        账户信息查询
-      </TabPanel>
-      <TabPanel value={tabValue} index={"任务发起"}>
-        任务发起
-      </TabPanel>
-      <TabPanel value={tabValue} index={"任务查看"}>
-        任务查看
-      </TabPanel>
-      <TabPanel value={tabValue} index={"发起检查任务"}>
-        发起检查任务
-      </TabPanel>
-      <TabPanel value={tabValue} index={"检查任务查看"}>
-        检查任务查看
-      </TabPanel>
-      <TabPanel value={tabValue} index={"受益任务发起"}>
-        受益任务发起
-      </TabPanel>
-      <TabPanel value={tabValue} index={"任务查询"}>
-        任务查询
-      </TabPanel>
-      <TabPanel value={tabValue} index={"客户对比字段设置"}>
-        客户对比字段设置
-      </TabPanel>
-      <TabPanel value={tabValue} index={"质量校验设置"}>
-        质量校验设置
-      </TabPanel>
-      <TabPanel value={tabValue} index={"重新识别规则设置"}>
-        重新识别规则设置
-      </TabPanel>
-      <TabPanel value={tabValue} index={"白名单设置"}>
-        白名单设置
-      </TabPanel>
-      <TabPanel value={tabValue} index={"参数设置"}>
-        参数设置
-      </TabPanel>
-      <TabPanel value={tabValue} index={"数据不一致报表"}>
-        数据不一致报表
-      </TabPanel>
-      <TabPanel value={tabValue} index={"客户质量维护报表"}>
-        客户质量维护报表
-      </TabPanel>
-      <TabPanel value={tabValue} index={"尽职调查报表"}>
-        尽职调查报表
-      </TabPanel>
-      <TabPanel value={tabValue} index={"后督检查报表"}>
-        后督检查报表
-      </TabPanel>
+
+      {taskNameArr.map((taskName, index) => {
+
+        return (
+          <TabPanel value={tabValue} index={taskName} key={taskName}>
+           <Grow in={true}><Typography variant="h2">{taskName}</Typography></Grow> 
+          </TabPanel>
+
+
+        )
+
+      })}
+
+
+
+
+      
     </div>
   );
 }

@@ -6,7 +6,7 @@ import './App.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid } from "@material-ui/core";
+import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, Grow, Zoom } from "@material-ui/core";
 
 import LeftBar from "./LeftBar";
 
@@ -50,14 +50,13 @@ function App() {
 
       </Grid> */}
 
+      <Zoom in={true} style={{ transitionDelay: "200ms" }}>
+        <div style={{ display: "flex", width: "100%", backgroundColor: "pink", }}>
 
-      <div style={{ display: "flex", width: "100%", backgroundColor: "pink", }}>
-
-        <LeftBar />
-        <MainPanel />
-
-      </div>
-
+          <LeftBar />
+          <MainPanel />
+        </div>
+      </Zoom>
     </>
   )
 

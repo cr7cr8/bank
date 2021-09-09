@@ -8,9 +8,10 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2, } fro
 import { useState, useRef, useEffect, useContext, useCallback, createContext, useMemo } from 'react';
 import { Context1 } from "./Context1Provider"
 import { makeStyles, styled, useTheme } from '@material-ui/core/styles';
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
+import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, AppBar, Toolbar, IconButton, Menu, Zoom } from "@material-ui/core";
 import { Image, Brightness4, Brightness5, FormatBold, FormatItalic, FormatUnderlined, InsertEmoticon, PaletteOutlined } from "@material-ui/icons";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 import {
   isMobile,
@@ -22,7 +23,7 @@ import {
 
 import bankLogo from "./bankLogo.png";
 
-import { leftBarCategory } from "./config";
+import { leftBarCategory, breakpointsAttribute, ConditionalWrapper } from "./config";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
   listRoot: {
     width: "fit-content",
+    overflowWrap: "anywhere",
     flexGrow: 0,
 
     // width: '100%',
@@ -76,10 +78,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: blue[400],
       color: "white",
     },
-    "& >.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button:hover": {
-      backgroundColor: blue[100],
-      color: blue[400],
-    },
+    // "& >.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button:hover": {
+    //   backgroundColor: blue[100],
+    //   color: blue[400],
+    // },
 
 
     "& .MuiListItemIcon-root": {
@@ -97,14 +99,25 @@ const useStyles = makeStyles((theme) => ({
       borderBottomWidth: "1px",
     },
     "& .MuiCollapse-container:hover": {
-      backgroundColor: blue[400],
-      color: "white",
-      borderBottomStyle: "solid",
-      borderBottomColor: blue[400],
-      borderBottomWidth: "1px",
+      // backgroundColor: blue[400],
+      // color: "white",
+      // borderBottomStyle: "solid",
+      // borderBottomColor: blue[400],
+      // borderBottomWidth: "1px",
 
     },
+    "& .MuiListItem-gutters": {
 
+      ...breakpointsAttribute(["paddingLeft", "0px", "16px", "16px"], ["paddingRight", "0px", "16px", "16px"]),
+
+      borderTopWidth:"1px",
+      borderTopStyle:"solid",
+      borderTopColor:blue[400],
+    },
+    "& .MuiListItem-gutters:hover": {
+      backgroundColor: blue[100],
+      color: blue[400],
+    }
 
 
   },
@@ -203,7 +216,7 @@ export default function LeftBar() {
 
   const { tabArr, setTabArr, tabValue, setTabValue } = useContext(Context1)
   const classes = useStyles();
-  const [categoryNameArr, setCategoryNameArr] = useState(Object.keys(leftBarCategory).map((item) => { return { categoryName: item, open: false } }))
+  const [categoryNameArr, setCategoryNameArr] = useState(Object.keys(leftBarCategory).map((item) => { return { categoryName: item, open: false, firstTime: true } }))
 
   //alert(JSON.stringify(Object.keys(leftBarCategory)))
 
@@ -213,7 +226,7 @@ export default function LeftBar() {
 
     <List classes={{ root: classes.listRoot, }} >
 
-      {categoryNameArr.map(({ categoryName, open }, index) => {
+      {categoryNameArr.map(({ categoryName, open, firstTime }, index) => {
 
         return (
           <React.Fragment key={categoryName}>
@@ -223,6 +236,7 @@ export default function LeftBar() {
               onClick={function () {
                 setCategoryNameArr((categoryNameArr) => {
                   categoryNameArr[index].open = !open
+
                   return [...categoryNameArr]
                 })
 
@@ -234,44 +248,58 @@ export default function LeftBar() {
                 </ListItemIcon>
               </Hidden>
               <Hidden smDown>
-              <ListItemText primary={categoryName} />
+                <ListItemText primary={categoryName} />
               </Hidden>
 
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit onExited={function () {
 
-            {leftBarCategory[categoryName].map((taskName, index) => {
+              setCategoryNameArr((categoryNameArr) => {
+                categoryNameArr[index].firstTime = false
 
-              return (
-
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}
-                      onClick={function () {
-                        if (tabArr.includes(taskName)) {
-
-                          setTabValue(taskName)
-
-                        }
-                        else {
-                          setTabArr(arr => { arr.push(taskName); return arr })
-
-                          setTabValue(taskName)
-
-                        }
-                      }}
-                    >
-                      <ListItemText primary={taskName} />
-                    </ListItem>
-                  </List>
-                </Collapse>
+                return [...categoryNameArr]
+              })
 
 
-              )
+            }}>
+
+              {leftBarCategory[categoryName].map((taskName, taskIndex) => {
+
+                return (
+
+                  <ConditionalWrapper
+                    condition={firstTime}
+                    wrapper={Component => <Zoom key={taskName} in={true} style={{ transitionDelay: `${(taskIndex + 1) * 30}ms` }}>{Component}</Zoom>}
+                  >
+                    <List component="div" disablePadding key={taskName}>
+                      <ListItem button className={classes.nested}
+                        onClick={function () {
+                          if (tabArr.includes(taskName)) {
+
+                            setTabValue(taskName)
+
+                          }
+                          else {
+                            setTabArr(arr => { arr.push(taskName); return arr })
+
+                            setTabValue(taskName)
+
+                          }
+                        }}
+                      >
+                        <ListItemText primary={taskName} />
+                      </ListItem>
+                    </List>
+                  </ConditionalWrapper>
 
 
-            })}
 
+                )
+
+
+              })}
+            </Collapse>
 
 
 
@@ -300,465 +328,6 @@ export default function LeftBar() {
   )
 
 
-
-  return (
-    <>
-
-
-      <List
-        // component="nav"
-        // aria-labelledby="nested-list-subheader"
-        // subheader={
-        //   <ListSubheader component="div" id="nested-list-subheader">
-        //     Nested List Items
-        //   </ListSubheader>
-        // }
-        //className={classes.root2}
-        classes={{ root: classes.listRoot, }}
-      >
-
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-
-          <Hidden smDown>
-            <ListItemText primary="客户视图" />
-          </Hidden>
-
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("客户信息查询")) {
-
-                  setTabValue("客户信息查询")
-
-                }
-                else {
-                  setTabArr(arr => { arr.push("客户信息查询"); return arr })
-
-                  setTabValue("客户信息查询")
-
-                }
-              }}>
-              <ListItemText primary="客户信息查询" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("账户信息查询")) {
-
-                  setTabValue("账户信息查询")
-
-                }
-                else {
-                  setTabArr(arr => { arr.push("账户信息查询"); return arr })
-
-                  setTabValue("账户信息查询")
-
-
-                }
-              }}>
-              <ListItemText primary="账户信息查询" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-
-
-        <ListItem button onClick={handleClick2}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
-            <ListItemText primary="任务管理" />
-          </Hidden>
-          {open2 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open2} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("任务发起")) {
-
-                  setTabValue("任务发起")
-
-                }
-                else {
-                  setTabArr(arr => { arr.push("任务发起"); return arr })
-
-                  setTabValue("任务发起")
-
-
-                }
-              }}>
-
-
-              <ListItemText primary="任务发起" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open2} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("任务查看")) {
-                  setTabValue("任务查看")
-                }
-                else {
-                  setTabArr(arr => { arr.push("任务查看"); return arr })
-                  setTabValue("任务查看")
-                }
-              }}
-            >
-              <ListItemText primary="任务查看" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-
-        <ListItem button onClick={handleClick3}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-
-          <Hidden smDown>
-            <ListItemText primary="后督检查" />
-          </Hidden>
-
-          {open3 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open3} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("发起检查任务")) {
-                  setTabValue("发起检查任务")
-                }
-                else {
-                  setTabArr(arr => { arr.push("发起检查任务"); return arr })
-                  setTabValue("发起检查任务")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="发起检查任务" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open3} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("检查任务查看")) {
-                  setTabValue("检查任务查看")
-                }
-                else {
-                  setTabArr(arr => { arr.push("检查任务查看"); return arr })
-                  setTabValue("检查任务查看")
-                }
-              }}
-
-            >
-              <ListItemText primary="检查任务查看" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <ListItem button onClick={handleClick4}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-
-          <Hidden smDown>
-            <ListItemText primary="受益人识别" />
-          </Hidden>
-
-          {open4 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open4} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("受益任务发起")) {
-                  setTabValue("受益任务发起")
-                }
-                else {
-                  setTabArr(arr => { arr.push("受益任务发起"); return arr })
-                  setTabValue("受益任务发起")
-                }
-              }}
-
-            >
-              <ListItemText primary="受益任务发起" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open4} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("任务查询")) {
-                  setTabValue("任务查询")
-                }
-                else {
-                  setTabArr(arr => { arr.push("任务查询"); return arr })
-                  setTabValue("任务查询")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="任务查询" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-        <ListItem button onClick={handleClick5}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
-            <ListItemText primary="配置管理" />
-          </Hidden>
-          {open5 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("客户对比字段设置")) {
-                  setTabValue("客户对比字段设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("客户对比字段设置"); return arr })
-                  setTabValue("客户对比字段设置")
-                }
-              }}
-
-            >
-              <ListItemText primary="客户对比字段设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("质量校验设置")) {
-                  setTabValue("质量校验设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("质量校验设置"); return arr })
-                  setTabValue("质量校验设置")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="质量校验设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("重新识别规则设置")) {
-                  setTabValue("重新识别规则设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("重新识别规则设置"); return arr })
-                  setTabValue("重新识别规则设置")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="重新识别规则设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("白名单设置")) {
-                  setTabValue("白名单设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("白名单设置"); return arr })
-                  setTabValue("白名单设置")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="白名单设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <Collapse in={open5} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("参数设置")) {
-                  setTabValue("参数设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("参数设置"); return arr })
-                  setTabValue("参数设置")
-                }
-              }}
-
-
-
-
-            >
-              <ListItemText primary="参数设置" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-        <ListItem button onClick={handleClick6}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Hidden smDown>
-            <ListItemText primary="报表查询" />
-          </Hidden>
-          {open6 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("数据不一致报表")) {
-                  setTabValue("数据不一致报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("数据不一致报表"); return arr })
-                  setTabValue("数据不一致报表")
-                }
-              }}
-
-            >
-              <ListItemText primary="数据不一致报表" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("客户质量维护报表")) {
-                  setTabValue("客户质量维护报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("客户质量维护报表"); return arr })
-                  setTabValue("客户质量维护报表")
-                }
-              }}
-
-
-            >
-              <ListItemText primary="客户质量维护报表" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("尽职调查报表")) {
-                  setTabValue("尽职调查报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("尽职调查报表"); return arr })
-                  setTabValue("尽职调查报表")
-                }
-              }}
-            >
-              <ListItemText primary="尽职调查报表" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <Collapse in={open6} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("后督检查报表")) {
-                  setTabValue("后督检查报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("后督检查报表"); return arr })
-                  setTabValue("后督检查报表")
-                }
-              }}
-
-            >
-              <ListItemText primary="后督检查报表" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-
-
-
-        {/* <FormControlLabel
-          value="start"
-          control={<Radio color="primary" />}
-          label="Start"
-          labelPlacement="start"
-        /> */}
-
-
-
-
-
-        {/* <ListItem button>
-          <ListItemIcon        >
-            <SendIcon />
-          </ListItemIcon  >
-          <ListItemText primary="客户视图" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItem> */}
-
-      </List>
-
-
-    </>
-  )
-
-
 }
 
 
@@ -767,3 +336,5 @@ export default function LeftBar() {
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
+
+

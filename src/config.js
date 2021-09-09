@@ -1,5 +1,5 @@
 
-
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 export const leftBarCategory = {
 
 
@@ -37,10 +37,43 @@ export const leftBarCategory = {
 
 
 
+const breakpoints = createBreakpoints({})
+
+export function breakpointsAttribute(...args) {
+
+  let xs = {}
+  let sm = {}
+  let md = {}
+  let lg = {}
+  let xl = {}
+
+  args.forEach(item => {
+    xs = { ...xs, [item[0]]: item[1] }
+    sm = { ...sm, [item[0]]: item[2] || item[1] }
+    md = { ...md, [item[0]]: item[3] || item[2] || item[1] }
+    lg = { ...lg, [item[0]]: item[4] || item[3] || item[2] || item[1] }
+    xl = { ...xl, [item[0]]: item[5] || item[4] || item[3] || item[2] || item[1] }
+  })
+
+
+  return {
+    [breakpoints.only('xs')]: { ...xs },
+    [breakpoints.only('sm')]: { ...sm },
+    [breakpoints.only('md')]: { ...md },
+    [breakpoints.only('lg')]: { ...lg },
+    [breakpoints.only('xl')]: { ...xl },
+  }
+}
+
+export function flatten(arr) {
+  return arr.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
+}
 
 
 
 
 
-
-
+export const ConditionalWrapper = ({ condition, wrapper, children }) => 
+  condition ? wrapper(children) : children;
