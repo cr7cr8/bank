@@ -80,8 +80,8 @@ export default function ScrollableTabsButtonAuto() {
 
 
   return (
-    <div className={classes.root} style={{ backgroundColor: "pink" }}>
-      <AppBar position="sticky" color="default" elevation={1}>
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
         <Tabs
           value={tabValue}
           selectionFollowsFocus={true}
@@ -126,7 +126,39 @@ export default function ScrollableTabsButtonAuto() {
                         hoverContent={<Typography>{label}</Typography>}
                       />
                     </div>
+                    {/* <Chip label={label} style={{ fontSize:"1rem", ...label === tabValue && { backgroundColor:  blue[400],color:"white" } }}
+                      onDelete={function () {
+                        setTabValue(tabArr[arrIndex === 0 ? 1 : 0])
 
+                        setTabArr(arr => {
+
+
+                          return arr.filter(item => { return item !== label })
+                        })
+
+                      }}
+
+                    /> */}
+                    {/* <Button onDoubleClick={function () {
+                        
+                        setTabValue(tabArr[arrIndex===0?1:0])
+                        
+                        setTabArr(arr => {
+
+
+                          return arr.filter(item => { return item !== label })                          
+                        })
+
+                        
+                      }}
+                      
+                      onClick={function(){
+
+
+                      }}
+                      
+                      >{label}
+                      </Button> */}
                   </Grow>
                 }
                 {...a11yProps(label)}
@@ -135,11 +167,11 @@ export default function ScrollableTabsButtonAuto() {
             )
           })}
 
-
+     
         </Tabs>
       </AppBar>
       <TabPanel value={tabValue} index={"客户信息查询"}>
-          <AvatarChip personName="tab1" label={<Typography>客户信息查询</Typography>} />
+        <AvatarChip personName="tab1" label={<Typography>客户信息查询</Typography>} />
       </TabPanel>
       <TabPanel value={tabValue} index={"账户信息查询"}>
         账户信息查询
@@ -150,43 +182,43 @@ export default function ScrollableTabsButtonAuto() {
       <TabPanel value={tabValue} index={"任务查看"}>
         任务查看
       </TabPanel>
-      <TabPanel value={tabValue} index={"发起检查任务"}>
+      <TabPanel value={value} index={"发起检查任务"}>
         发起检查任务
       </TabPanel>
-      <TabPanel value={tabValue} index={"检查任务查看"}>
+      <TabPanel value={value} index={"检查任务查看"}>
         检查任务查看
       </TabPanel>
-      <TabPanel value={tabValue} index={"受益任务发起"}>
+      <TabPanel value={value} index={"受益任务发起"}>
         受益任务发起
       </TabPanel>
-      <TabPanel value={tabValue} index={"任务查询"}>
+      <TabPanel value={value} index={"任务查询"}>
         任务查询
       </TabPanel>
-      <TabPanel value={tabValue} index={"客户对比字段设置"}>
+      <TabPanel value={value} index={"客户对比字段设置"}>
         客户对比字段设置
       </TabPanel>
-      <TabPanel value={tabValue} index={"质量校验设置"}>
+      <TabPanel value={value} index={"质量校验设置"}>
         质量校验设置
       </TabPanel>
-      <TabPanel value={tabValue} index={"重新识别规则设置"}>
+      <TabPanel value={value} index={"重新识别规则设置"}>
         重新识别规则设置
       </TabPanel>
-      <TabPanel value={tabValue} index={"白名单设置"}>
+      <TabPanel value={value} index={"白名单设置"}>
         白名单设置
       </TabPanel>
-      <TabPanel value={tabValue} index={"参数设置"}>
+      <TabPanel value={value} index={"参数设置"}>
         参数设置
       </TabPanel>
-      <TabPanel value={tabValue} index={"数据不一致报表"}>
+      <TabPanel value={value} index={"数据不一致报表"}>
         数据不一致报表
       </TabPanel>
-      <TabPanel value={tabValue} index={"客户质量维护报表"}>
+      <TabPanel value={value} index={"客户质量维护报表"}>
         客户质量维护报表
       </TabPanel>
-      <TabPanel value={tabValue} index={"尽职调查报表"}>
+      <TabPanel value={value} index={"尽职调查报表"}>
         尽职调查报表
       </TabPanel>
-      <TabPanel value={tabValue} index={"后督检查报表"}>
+      <TabPanel value={value} index={"后督检查报表"}>
         后督检查报表
       </TabPanel>
     </div>

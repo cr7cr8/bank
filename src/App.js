@@ -51,7 +51,7 @@ function App() {
       </Grid> */}
 
 
-      <div style={{ display: "flex", width: "100%", height: "200px", backgroundColor: "pink", }}>
+      <div style={{ display: "flex", width: "100%", backgroundColor: "pink", }}>
 
         <LeftBar />
         <MainPanel />
