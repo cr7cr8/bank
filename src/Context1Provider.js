@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState, useReducer, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
+import { leftBarCategory } from "./config";
 
 import { createMuiTheme, ThemeProvider, responsiveFontSizes, } from "@material-ui/core";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -138,6 +139,7 @@ export default function Context1Provider(props) {
 
   const [tabArr, setTabArr] = useState([])
   const [tabValue, setTabValue] = useState("")
+  
 
 
   return (
@@ -146,6 +148,7 @@ export default function Context1Provider(props) {
       lgSizeObj, smSizeObj, deviceSize,
       tabArr, setTabArr,
       tabValue, setTabValue,
+      leftBarCategory,
     }}>
       <ThemeProvider theme={theme}>
         {props.children}

@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     //With flex-grow: 1, width:0,the item will consume all available space on the line after having factored in flex-basis / width.
     //initial width 0px, take the remaing space 10 out of / (flexGrow 10 ->mainPanel  +   flexGrow 0-> from left bar )
     backgroundColor: theme.palette.background.paper,
+  
   },
 }));
 
@@ -107,9 +108,9 @@ export default function ScrollableTabsButtonAuto() {
                   <Grow in={true} key={label}>
                     <div>
                       <AvatarChip size={["0.9rem"]} personName={label} noAvatar={true}
-                        style={{ ...label === tabValue && { backgroundColor: blue[400], color: "white" } }}
+                        style={{ ...label === tabValue && { backgroundColor: blue[400], color: "white"} }}
                         label={
-                          <Typography >{label}</Typography>
+                          <Typography style={{whiteSpace: "pre-wrap"}} >{label}</Typography>
 
                         }
 

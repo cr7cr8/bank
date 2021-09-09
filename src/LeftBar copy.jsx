@@ -22,7 +22,6 @@ import {
 
 import bankLogo from "./bankLogo.png";
 
-import { leftBarCategory } from "./config";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
 
     // width: '100%',
-    maxWidth: "10vw",
+    // maxWidth: 220,
     backgroundColor: blue[400],//theme.palette.background.paper,
     //color:"white",
     padding: 0,
@@ -168,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LeftBar() {
 
-
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
@@ -201,105 +200,8 @@ export default function LeftBar() {
     setOpen6(!open6);
   };
 
+
   const { tabArr, setTabArr, tabValue, setTabValue } = useContext(Context1)
-  const classes = useStyles();
-  const [categoryNameArr, setCategoryNameArr] = useState(Object.keys(leftBarCategory).map((item) => { return { categoryName: item, open: false } }))
-
-  //alert(JSON.stringify(Object.keys(leftBarCategory)))
-
-  //alert(leftBarCategory["受益所有人识别"].length)
-
-  return (
-
-    <List classes={{ root: classes.listRoot, }} >
-
-      {categoryNameArr.map(({ categoryName, open }, index) => {
-
-        return (
-          <React.Fragment key={categoryName}>
-            <ListItem
-              button
-              //    key={item.categoryName}
-              onClick={function () {
-                setCategoryNameArr((categoryNameArr) => {
-                  categoryNameArr[index].open = !open
-                  return [...categoryNameArr]
-                })
-
-              }} >
-
-              <Hidden mdDown>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-              </Hidden>
-              <Hidden smDown>
-              <ListItemText primary={categoryName} />
-              </Hidden>
-
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-
-            {leftBarCategory[categoryName].map((taskName, index) => {
-
-              return (
-
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}
-                      onClick={function () {
-                        if (tabArr.includes(taskName)) {
-
-                          setTabValue(taskName)
-
-                        }
-                        else {
-                          setTabArr(arr => { arr.push(taskName); return arr })
-
-                          setTabValue(taskName)
-
-                        }
-                      }}
-                    >
-                      <ListItemText primary={taskName} />
-                    </ListItem>
-                  </List>
-                </Collapse>
-
-
-              )
-
-
-            })}
-
-
-
-
-
-
-
-
-
-
-
-
-          </React.Fragment>
-        )
-      })
-
-      }
-
-
-
-
-
-    </List>
-
-
-
-  )
-
-
 
   return (
     <>
@@ -470,7 +372,7 @@ export default function LeftBar() {
                   setTabValue("检查任务查看")
                 }
               }}
-
+            
             >
               <ListItemText primary="检查任务查看" />
             </ListItem>
@@ -491,16 +393,16 @@ export default function LeftBar() {
         <Collapse in={open4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("受益任务发起")) {
-                  setTabValue("受益任务发起")
-                }
-                else {
-                  setTabArr(arr => { arr.push("受益任务发起"); return arr })
-                  setTabValue("受益任务发起")
-                }
-              }}
-
+                  onClick={function () {
+                    if (tabArr.includes("受益任务发起")) {
+                      setTabValue("受益任务发起")
+                    }
+                    else {
+                      setTabArr(arr => { arr.push("受益任务发起"); return arr })
+                      setTabValue("受益任务发起")
+                    }
+                  }}
+            
             >
               <ListItemText primary="受益任务发起" />
             </ListItem>
@@ -509,17 +411,17 @@ export default function LeftBar() {
         <Collapse in={open4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("任务查询")) {
-                  setTabValue("任务查询")
-                }
-                else {
-                  setTabArr(arr => { arr.push("任务查询"); return arr })
-                  setTabValue("任务查询")
-                }
-              }}
-
-
+                onClick={function () {
+                  if (tabArr.includes("任务查询")) {
+                    setTabValue("任务查询")
+                  }
+                  else {
+                    setTabArr(arr => { arr.push("任务查询"); return arr })
+                    setTabValue("任务查询")
+                  }
+                }}
+            
+            
             >
               <ListItemText primary="任务查询" />
             </ListItem>
@@ -539,17 +441,17 @@ export default function LeftBar() {
         <Collapse in={open5} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("客户对比字段设置")) {
-                  setTabValue("客户对比字段设置")
-                }
-                else {
-                  setTabArr(arr => { arr.push("客户对比字段设置"); return arr })
-                  setTabValue("客户对比字段设置")
-                }
-              }}
-
+            
+            onClick={function () {
+              if (tabArr.includes("客户对比字段设置")) {
+                setTabValue("客户对比字段设置")
+              }
+              else {
+                setTabArr(arr => { arr.push("客户对比字段设置"); return arr })
+                setTabValue("客户对比字段设置")
+              }
+            }}
+            
             >
               <ListItemText primary="客户对比字段设置" />
             </ListItem>
@@ -567,8 +469,8 @@ export default function LeftBar() {
                   setTabValue("质量校验设置")
                 }
               }}
-
-
+            
+            
             >
               <ListItemText primary="质量校验设置" />
             </ListItem>
@@ -586,8 +488,8 @@ export default function LeftBar() {
                   setTabValue("重新识别规则设置")
                 }
               }}
-
-
+            
+            
             >
               <ListItemText primary="重新识别规则设置" />
             </ListItem>
@@ -605,8 +507,8 @@ export default function LeftBar() {
                   setTabValue("白名单设置")
                 }
               }}
-
-
+            
+            
             >
               <ListItemText primary="白名单设置" />
             </ListItem>
@@ -624,10 +526,10 @@ export default function LeftBar() {
                   setTabValue("参数设置")
                 }
               }}
-
-
-
-
+            
+            
+            
+            
             >
               <ListItemText primary="参数设置" />
             </ListItem>
@@ -648,17 +550,17 @@ export default function LeftBar() {
         <Collapse in={open6} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("数据不一致报表")) {
-                  setTabValue("数据不一致报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("数据不一致报表"); return arr })
-                  setTabValue("数据不一致报表")
-                }
-              }}
-
+            
+            onClick={function () {
+              if (tabArr.includes("数据不一致报表")) {
+                setTabValue("数据不一致报表")
+              }
+              else {
+                setTabArr(arr => { arr.push("数据不一致报表"); return arr })
+                setTabValue("数据不一致报表")
+              }
+            }}
+            
             >
               <ListItemText primary="数据不一致报表" />
             </ListItem>
@@ -668,18 +570,18 @@ export default function LeftBar() {
         <Collapse in={open6} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("客户质量维护报表")) {
-                  setTabValue("客户质量维护报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("客户质量维护报表"); return arr })
-                  setTabValue("客户质量维护报表")
-                }
-              }}
-
-
+            
+            onClick={function () {
+              if (tabArr.includes("客户质量维护报表")) {
+                setTabValue("客户质量维护报表")
+              }
+              else {
+                setTabArr(arr => { arr.push("客户质量维护报表"); return arr })
+                setTabValue("客户质量维护报表")
+              }
+            }}
+            
+            
             >
               <ListItemText primary="客户质量维护报表" />
             </ListItem>
@@ -689,16 +591,16 @@ export default function LeftBar() {
         <Collapse in={open6} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-
-              onClick={function () {
-                if (tabArr.includes("尽职调查报表")) {
-                  setTabValue("尽职调查报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("尽职调查报表"); return arr })
-                  setTabValue("尽职调查报表")
-                }
-              }}
+            
+            onClick={function () {
+              if (tabArr.includes("尽职调查报表")) {
+                setTabValue("尽职调查报表")
+              }
+              else {
+                setTabArr(arr => { arr.push("尽职调查报表"); return arr })
+                setTabValue("尽职调查报表")
+              }
+            }}
             >
               <ListItemText primary="尽职调查报表" />
             </ListItem>
@@ -708,16 +610,16 @@ export default function LeftBar() {
         <Collapse in={open6} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}
-              onClick={function () {
-                if (tabArr.includes("后督检查报表")) {
-                  setTabValue("后督检查报表")
-                }
-                else {
-                  setTabArr(arr => { arr.push("后督检查报表"); return arr })
-                  setTabValue("后督检查报表")
-                }
-              }}
-
+             onClick={function () {
+              if (tabArr.includes("后督检查报表")) {
+                setTabValue("后督检查报表")
+              }
+              else {
+                setTabArr(arr => { arr.push("后督检查报表"); return arr })
+                setTabValue("后督检查报表")
+              }
+            }}
+            
             >
               <ListItemText primary="后督检查报表" />
             </ListItem>
