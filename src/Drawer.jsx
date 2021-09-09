@@ -77,16 +77,11 @@ function ResponsiveDrawer(props) {
 
   }, [])
 
-
-
   const drawer = (
     <>
       <LeftBar />
     </>
   );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
 
   return (
     <Drawer
