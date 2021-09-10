@@ -68,6 +68,7 @@ export default function Context1Provider(props) {
 
     let muiTheme = createMuiTheme({
       palette: {
+        ppp:"red",
         primary: primaryColor,
         type: isLight ? 'light' : "dark",
         // mentionBackColor: isLight ? "#b7e1fc" : muiTheme.palette.primary.light,

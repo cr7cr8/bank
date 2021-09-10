@@ -18,28 +18,21 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 
-import LeftBar from "./LeftBar";
+//import LeftBar from "./LeftBar";
 
-const drawerWidth = 240;
+const drawerWidth = "10vw";
 
 const useStyles = makeStyles((theme) => ({
 
   drawer: (open) => {
-
     return {
-      width: open ? "10vw" : 0,
+      width: open ? drawerWidth: 0,
       transition: "width 300ms",
     //  maxWidth:   "10vw",
    //   minHeight:"100vh"
-   //   position: "relative",
-     
+   //   position: "relative",    
     }
-
-
   },
-
-
-
   drawerPaper: (open) => {
     return {
       // width: open ? "250px" : 0,
@@ -53,8 +46,9 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
+
+export default  function ResponsiveDrawer({children,...props}) {
+  
 
   const [open, setOpen] = React.useState(true)
   const classes = useStyles(open);
@@ -62,27 +56,18 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
 
-
-
   React.useEffect(function () {
-
     const timeInterval = setInterval(() => {
       setOpen(pre => !pre)
     }, 3000)
 
     return function () {
-
       clearInterval(timeInterval)
     }
 
   }, [])
 
-  const drawer = (
-    <>
-      <LeftBar />
-    </>
-  );
-
+  
   return (
     <Drawer
       className={classes.drawer}
@@ -93,7 +78,7 @@ function ResponsiveDrawer(props) {
         paper: classes.drawerPaper,
       }}
     >
-      {drawer}
+      {children}
     </Drawer>
 
 
@@ -103,6 +88,3 @@ function ResponsiveDrawer(props) {
 
 }
 
-
-
-export default ResponsiveDrawer;

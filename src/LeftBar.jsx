@@ -242,11 +242,6 @@ export default function LeftBar() {
       })
 
       }
-
-
-
-
-
     </List>
 
 

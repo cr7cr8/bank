@@ -162,7 +162,7 @@ export default function HeadBar() {
         <Toolbar classes={{ root: classes.appBar }}>
           <Grow in={true}>
             <div>
-              <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}
+              <AvatarChip size={["2.8rem"]} personName="bank" style={{ backgroundColor: "transparent" }}  
                 label={
                   <>
                     <Typography variant="h5" >
@@ -187,6 +187,7 @@ export default function HeadBar() {
 
 
           <AvatarChip
+       
             size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"}
 
             //onClick={function () { alert("fdfdsfsd") }}
@@ -215,6 +216,7 @@ export default function HeadBar() {
               </>
             }
           />
+          
 
         </Toolbar>
 

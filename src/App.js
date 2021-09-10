@@ -4,17 +4,17 @@ import './App.css';
 
 
 
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, Grow, Zoom } from "@material-ui/core";
+ import { Typography, Button, ButtonGroup, Container, Paper, Box, Avatar, Grid, Grow, Zoom } from "@material-ui/core";
 
-import LeftBar from "./LeftBar";
+// import LeftBar from "./LeftBar";
 
 
 
-import HeadBar, { MyAvatar } from "./HeadBar";
-import MainPanel from "./MainPanel";
-import Drawer from "./Drawer"
+// import HeadBar, { MyAvatar } from "./HeadBar";
+// import MainPanel from "./MainPanel";
+// import Drawer from "./Drawer"
 
 //import AvatarLogo, { AvatarChip } from "./AvatarLogo";
 
@@ -22,44 +22,54 @@ import { AvatarChip, AvatarLogo, } from "avatar-chip";
 
 function App() {
 
-
   return (
     <>
-      <CssBaseline />
+      <AvatarChip
+        size={["4rem", "3rem", "2rem", "1.5rem"]}
+        personName={"bob"}
+      />
+
+
+      <AvatarChip
+        size={["4rem", "3rem", "2rem", "11.5rem"]}
+        personName={"peter"}
+        //onClick={function () { alert("hello peter") }}
+        avatarProps={{ onClick: function (e) { e.stopPropagation(); alert("hi") } }}
+        //src="https://picsum.photos/200/300" 
+        label={<></>}
+        hoverContent={<>This is peter</>}
+      />
 
 
 
-
-      <HeadBar />
-
-      {/* <MyAvatar size="10rem"/> */}
-
-      {/* <Grid container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        spacing={0}
-
-      >
-        <Grid item xs={1} sm={1} md={1} lg={1} xl={1}style={{backgroundColor:"#faf"}}>
-          <LeftBar /> 
-
-        </Grid>
-        <Grid item xs={11} sm={11} md={11} lg={11} xl={11} >
-        <MainPanel />
-        </Grid>
-
-      </Grid> */}
-
-      <Zoom in={true} style={{ transitionDelay: "200ms" }}>
-        <div style={{ display: "flex", width: "100%", backgroundColor: "pink", }}>
-
-       
-          <Drawer />
-          {/* <LeftBar /> */}
-          <MainPanel />
-        </div>
-      </Zoom>
+      <AvatarChip
+        size={["4rem", "3rem", "2rem", "1.5rem"]} personName={"毛fdsdsdsdsdsd帅"}
+        style={{ backgroundColor: "skyblue", color: "blue" }}
+        onClick={function () { alert("clicked") }}
+        avatarProps={{ size: ["1rem", "2rem", "3rem", "4rem", "5rem"], onClick: function (e) { e.stopPropagation(); alert("hi") } }}
+        src="https://picsum.photos/200/300"
+        label={
+          <>
+            <Typography variant="h5" style={{}}>
+              06355 马小帅
+          </Typography>
+            <Typography variant="h5" style={{ fontSize: "0.8rem", display: "block", color: "gray" }}>
+              银行总行法律合规部
+          </Typography>
+          </>
+        }
+        hoverContent={
+          <>
+            <div style={{ display: "flex", justifyContent: "center" }}><AvatarLogo size={["2.8rem"]} personName={"毛fdsdsdsdsdsd帅"} /></div>
+            <Typography variant="h5" style={{ fontSize: "1rem", }}>
+              06355 马小帅
+          </Typography>
+            <Typography variant="h5" style={{ fontSize: "0.8rem", display: "block", color: "gray" }}>
+              银行总行法律合规部
+          </Typography>
+          </>
+        }
+      />
     </>
   )
 
